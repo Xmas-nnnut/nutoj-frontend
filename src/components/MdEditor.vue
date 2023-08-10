@@ -1,5 +1,6 @@
 <template>
   <Editor :value="value" :plugins="plugins" @change="handleChange" />
+  {{ value }}
 </template>
 <script setup lang="ts">
 import gfm from "@bytemd/plugin-gfm";
