@@ -35,9 +35,11 @@ export default {
 }
 
 #basicLayout .content {
-  background: linear-gradient(to right, #bbb, #fff);
-  margin-bottom: 16px;
-  padding: 20px;
+  background: #fefefe;
+  margin-bottom: 20px;
+  margin-left: 5%;
+  margin-right: 5%;
+  /*padding: 20px;*/
 }
 
 #basicLayout .footer {

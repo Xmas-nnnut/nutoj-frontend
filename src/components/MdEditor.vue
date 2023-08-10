@@ -1,6 +1,12 @@
 <template>
-  <Editor :value="value" :plugins="plugins" @change="handleChange" />
-  {{ value }}
+  <div id="editor">
+    <Editor
+      :value="value"
+      :mode="mode"
+      :plugins="plugins"
+      @change="handleChange"
+    />
+  </div>
 </template>
 <script setup lang="ts">
 import gfm from "@bytemd/plugin-gfm";
@@ -13,6 +19,7 @@ import { ref, withDefaults, defineProps } from "vue";
  */
 interface Props {
   value: string;
+  mode?: string;
   handleChange: (v: string) => void;
 }
 
@@ -21,6 +28,7 @@ interface Props {
  */
 const props = withDefaults(defineProps<Props>(), {
   value: () => "",
+  mode: () => "split",
   handleChange: (v: string) => {
     console.log(v);
   },
