@@ -121,7 +121,7 @@ const doSubmit = async () => {
     questionId: question.value.id,
   });
   if (res.code === 0) {
-    message.success("提交成功" + res.message);
+    message.success("提交成功," + res.message);
   } else {
     message.error("提交失败," + res.message);
   }

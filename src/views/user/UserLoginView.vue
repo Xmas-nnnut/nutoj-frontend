@@ -21,6 +21,9 @@
         <a-button type="primary" html-type="submit" style="width: 120px"
           >登录
         </a-button>
+        <a-button type="secondary" href="/user/register" style="width: 120px"
+          >注册
+        </a-button>
       </a-form-item>
     </a-form>
   </div>

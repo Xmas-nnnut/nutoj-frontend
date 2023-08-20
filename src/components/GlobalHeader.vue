@@ -24,7 +24,49 @@
     </a-col>
     <a-col flex="100px">
       <div>
-        {{ store.state.user?.loginUser?.userName ?? "未登录" }}
+        <a-dropdown trigger="hover">
+          <a-avatar :style="{ backgroundColor: '#168CFF' }">
+            {{ store.state.user?.loginUser.userName ?? "未登录" }}
+          </a-avatar>
+          <template #content>
+            <template
+              v-if="
+                store.state.user?.loginUser.userRole !== ACCESS_ENUM.NOT_LOGIN
+              "
+            >
+              <a-doption>
+                <template #icon>
+                  <icon-idcard />
+                </template>
+                <template #default>
+                  <a-anchor-link href="/about">个人信息</a-anchor-link>
+                </template>
+              </a-doption>
+              <a-doption>
+                <template #icon>
+                  <icon-poweroff />
+                </template>
+                <template #default>
+                  <a-anchor-link @click="logout">退出登录</a-anchor-link>
+                </template>
+              </a-doption>
+            </template>
+            <template v-else>
+              <a-doption>
+                <template #icon>
+                  <icon-user />
+                </template>
+                <a-anchor-link href="/user/login">用户登录</a-anchor-link>
+              </a-doption>
+              <a-doption>
+                <template #icon>
+                  <icon-user-add />
+                </template>
+                <a-anchor-link href="/user/register">用户注册</a-anchor-link>
+              </a-doption>
+            </template>
+          </template>
+        </a-dropdown>
       </div>
     </a-col>
   </a-row>
@@ -35,6 +77,8 @@ import { useRoute, useRouter } from "vue-router";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import checkAccess from "@/access/checkAccess";
+import { UserControllerService } from "../../generated";
+import ACCESS_ENUM from "@/access/accessEnum";
 
 const router = useRouter();
 
@@ -72,13 +116,20 @@ const doMenuClick = (key: string) => {
 const store = useStore();
 store.state.user?.loginUser;
 
+// 获取相关信息
+
+//退出登录
+const logout = () => {
+  UserControllerService.userLogoutUsingPost();
+  location.reload();
+};
 //模拟登录
-setTimeout(() => {
-  store.dispatch("user/getLoginUser", {
-    userName: "xqj",
-    userRole: "admin",
-  });
-}, 3000);
+// setTimeout(() => {
+//   store.dispatch("user/getLoginUser", {
+//     userName: "xqj",
+//     userRole: "admin",
+//   });
+// }, 3000);
 </script>
 <style scoped>
 #globalHeader {

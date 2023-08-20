@@ -5,6 +5,7 @@
     style="min-height: 400px; height: 60vh"
   />
   {{ language }}
+  {{ value }}
   <a-button @click="fillValue">填充值</a-button>
 </template>
 <script setup lang="ts">
