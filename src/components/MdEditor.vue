@@ -2,6 +2,7 @@
   <div id="editor">
     <Editor
       :value="value"
+      :locale="locale"
       :mode="mode"
       :plugins="plugins"
       @change="handleChange"
@@ -13,6 +14,7 @@ import gfm from "@bytemd/plugin-gfm";
 import highlight from "@bytemd/plugin-highlight";
 import { Editor, Viewer } from "@bytemd/vue-next";
 import { ref, withDefaults, defineProps } from "vue";
+import locale from "../locales/zh_Hans.json";
 
 /**
  * 定义组件属性类型
@@ -40,4 +42,8 @@ const plugins = [
   // Add more plugins here
 ];
 </script>
-<style scoped></style>
+<style scoped>
+.bytemd-toolbar-icon.bytemd-tippy.bytemd-tippy right:last-child {
+  display: none;
+}
+</style>

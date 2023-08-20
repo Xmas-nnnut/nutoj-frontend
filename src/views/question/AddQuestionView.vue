@@ -9,10 +9,28 @@
         <a-input-tag v-model="form.tags" placeholder="请选择标签" allow-clear />
       </a-form-item>
       <a-form-item field="content" :content-flex="false" label="题目内容">
-        <MdEditor :value="form.content" :handle-change="onContentChange" />
+        <MdEditor
+          @click="
+            contentZIndex = 2;
+            answerZIndex = 1;
+          "
+          mode="split"
+          :style="`z-index: ${contentZIndex}`"
+          :value="form.content"
+          :handle-change="onContentChange"
+        />
       </a-form-item>
       <a-form-item field="answer" :content-flex="false" label="答案">
-        <MdEditor :value="form.answer" :handle-change="onAnswerChange" />
+        <MdEditor
+          @click="
+            contentZIndex = 1;
+            answerZIndex = 2;
+          "
+          mode="split"
+          :style="`z-index: ${answerZIndex}`"
+          :value="form.answer"
+          :handle-change="onAnswerChange"
+        />
       </a-form-item>
       <a-form-item label="判题配置" :content-flex="false" :merge-props="false">
         <a-space direction="vertical" style="min-width: 500px">
@@ -103,6 +121,9 @@ import MdEditor from "@/components/MdEditor.vue";
 import { QuestionControllerService } from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
 import { useRoute } from "vue-router";
+
+const contentZIndex = ref(1);
+const answerZIndex = ref(1);
 
 const route = useRoute();
 // 如果页面地址包含 update，视为更新页面
