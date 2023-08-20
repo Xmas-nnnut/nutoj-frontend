@@ -13,7 +13,7 @@
           disabled
         >
           <div class="title-bar">
-            <img class="logo" src="../assets/SilverWolf.png" />
+            <img class="logo" src="../assets/mlm.png" />
             <div class="title">坚果 oj</div>
           </div>
         </a-menu-item>

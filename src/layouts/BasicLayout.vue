@@ -32,6 +32,9 @@ export default {
 #basicLayout .header {
   margin-bottom: 16px;
   box-shadow: #eee 1px 1px 5px;
+  /*position: -webkit-sticky;*/
+  /*position: sticky;*/
+  /*top: 0;*/
 }
 
 #basicLayout .content {
@@ -45,10 +48,6 @@ export default {
 #basicLayout .footer {
   background: #efefef;
   padding: 16px;
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  right: 0;
   text-align: center;
 }
 </style>
