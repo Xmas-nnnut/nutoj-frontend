@@ -1,9 +1,11 @@
 import { RouteRecordRaw } from "vue-router";
+import HomeView from "@/views/HomeView.vue";
 import ExampleView from "@/views/ExampleView.vue";
 import AdminView from "@/views/AdminView.vue";
 import NoAuthView from "@/views/NoAuthView.vue";
 import UserLayout from "@/layouts/UserLayout.vue";
 import UserLoginView from "@/views/user/UserLoginView.vue";
+import UserManageView from "@/views/user/UserManageView.vue";
 import UserRegisterView from "@/views/user/UserRegisterView.vue";
 import ACCESS_ENUM from "@/access/accessEnum";
 import AddQuestionView from "@/views/question/AddQuestionView.vue";
@@ -36,7 +38,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "主页",
-    component: QuestionsView,
+    component: HomeView,
   },
   {
     path: "/questions",
@@ -84,6 +86,14 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: "/manage/user",
+    name: "用户管理",
+    component: UserManageView,
+    meta: {
+      access: ACCESS_ENUM.ADMIN,
+    },
+  },
+  {
     path: "/hide",
     name: "隐藏页面",
     component: ExampleView,
@@ -119,6 +129,6 @@ export const routes: Array<RouteRecordRaw> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+      import(/* webpackChunkName: "about" */ "../views/user/UserAboutView.vue"),
   },
 ];

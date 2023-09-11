@@ -1,11 +1,5 @@
 <template>
-  <div class="home">无权限</div>
+  <div class="noAuth">无权限</div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "HomeView",
-});
-</script>
+<script lang="ts" setup></script>
