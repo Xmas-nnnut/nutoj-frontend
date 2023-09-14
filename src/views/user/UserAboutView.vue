@@ -1,17 +1,21 @@
 <template>
   <div id="userInfoView">
-    <a-descriptions-item>
-      <!--      <a-avatar :size="100" shape="circle">-->
-      <!--        <img alt="头像" :src="loginUser.userAvatar" />-->
-      <!--      </a-avatar>-->
-      <a-avatar
-        :size="100"
-        shape="circle"
-        :style="{ backgroundColor: '#168CFF' }"
-      >
-        {{ store.state.user?.loginUser.userName ?? "未登录" }}
-      </a-avatar>
-    </a-descriptions-item>
+    <a-row justify="center" style="margin: 15px">
+      <a-col style="text-align: center">
+        <a-descriptions-item>
+          <!--      <a-avatar :size="100" shape="circle">-->
+          <!--        <img alt="头像" :src="loginUser.userAvatar" />-->
+          <!--      </a-avatar>-->
+          <a-avatar
+            :size="80"
+            shape="circle"
+            :style="{ backgroundColor: '#168CFF' }"
+          >
+            {{ store.state.user?.loginUser.userName ?? "未登录" }}
+          </a-avatar>
+        </a-descriptions-item>
+      </a-col>
+    </a-row>
     <a-card title="我的信息">
       <a-descriptions :data="data" size="large" column="1" bordered />
       <template #extra>
@@ -26,29 +30,29 @@
       @cancel="closeModel"
       unmountOnClose
     >
-      <div style="text-align: center">
-        <a-upload
-          action="/"
-          :fileList="file ? [file] : []"
-          :show-file-list="false"
-          @change="onChange"
-          :custom-request="uploadAvatar"
-        >
-          <template #upload-button>
-            <div
-              class="arco-upload-list-picture custom-upload-avatar"
-              v-if="updateForm.userAvatar"
-            >
-              <a-avatar :size="70" shape="circle">
-                <img alt="头像" :src="userAvatarImg" />
-              </a-avatar>
-              <div class="arco-upload-list-picture-mask">
-                <IconEdit />
-              </div>
-            </div>
-          </template>
-        </a-upload>
-      </div>
+      <!--      <div style="text-align: center">-->
+      <!--        <a-upload-->
+      <!--          action="/"-->
+      <!--          :fileList="file ? [file] : []"-->
+      <!--          :show-file-list="false"-->
+      <!--          @change="onChange"-->
+      <!--          :custom-request="uploadAvatar"-->
+      <!--        >-->
+      <!--          <template #upload-button>-->
+      <!--            <div-->
+      <!--              class="arco-upload-list-picture custom-upload-avatar"-->
+      <!--              v-if="updateForm.userAvatar"-->
+      <!--            >-->
+      <!--              <a-avatar :size="70" shape="circle">-->
+      <!--                <img alt="头像" :src="userAvatarImg" />-->
+      <!--              </a-avatar>-->
+      <!--              <div class="arco-upload-list-picture-mask">-->
+      <!--                <IconEdit />-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--          </template>-->
+      <!--        </a-upload>-->
+      <!--      </div>-->
       <a-form
         :model="loginUser"
         label-align="right"
@@ -72,26 +76,26 @@
         </a-form-item>
       </a-form>
     </a-modal>
-    <div>
-      <a-button
-        shape="round"
-        status="success"
-        size="small"
-        type="outline"
-        style="margin: 10px"
-      >
-        <a-link @click="toIndex">首页</a-link>
-      </a-button>
-      <a-button
-        shape="round"
-        status="normal"
-        size="medium"
-        type="outline"
-        style="margin: 10px"
-        @click="openModalForm"
-        >修改用户信息
-      </a-button>
-    </div>
+    <a-row justify="center" style="margin: 5px">
+      <a-col style="text-align: center">
+        <a-button
+          status="success"
+          size="small"
+          type="primary"
+          style="margin: 10px"
+        >
+          <a-link @click="toIndex">返回首页</a-link>
+        </a-button>
+        <a-button
+          status="normal"
+          size="medium"
+          type="primary"
+          style="margin: 10px"
+          @click="openModalForm"
+          >修改信息
+        </a-button>
+      </a-col>
+    </a-row>
   </div>
 </template>
 <script setup lang="ts">
@@ -222,7 +226,5 @@ const onChange = async (_: never, currentFile: FileItem) => {
   margin: 0 auto;
   padding: 10px;
   max-width: 820px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(35, 7, 7, 0.21);
 }
 </style>

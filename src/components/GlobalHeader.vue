@@ -22,10 +22,14 @@
         </a-menu-item>
       </a-menu>
     </a-col>
-    <a-col flex="100px">
-      <div>
+    <a-col
+      flex="100px"
+      div="true"
+      style="background-color: #fefefe; position: relative; padding: 14px 20px"
+    >
+      <div style="text-align: center">
         <a-dropdown trigger="hover">
-          <a-avatar :style="{ backgroundColor: '#168CFF' }">
+          <a-avatar :size="50" :style="{ backgroundColor: '#168CFF' }">
             {{ store.state.user?.loginUser.userName ?? "未登录" }}
           </a-avatar>
           <template #content>
@@ -135,7 +139,7 @@ const logout = () => {
 #globalHeader {
   box-sizing: border-box;
   width: 100%;
-  padding: 10px;
+  /*padding: 10px;*/
   /*background-color: var(--color-neutral-2);*/
 }
 
@@ -145,7 +149,7 @@ const logout = () => {
 }
 
 .logo {
-  height: 48px;
+  height: 50px;
 }
 
 .title {

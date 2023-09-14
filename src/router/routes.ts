@@ -7,6 +7,7 @@ import UserLayout from "@/layouts/UserLayout.vue";
 import UserLoginView from "@/views/user/UserLoginView.vue";
 import UserManageView from "@/views/user/UserManageView.vue";
 import UserRegisterView from "@/views/user/UserRegisterView.vue";
+import UserAboutView from "@/views/user/UserAboutView.vue";
 import ACCESS_ENUM from "@/access/accessEnum";
 import AddQuestionView from "@/views/question/AddQuestionView.vue";
 import ManageQuestionView from "@/views/question/ManageQuestionView.vue";
@@ -125,10 +126,15 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/about",
     name: "关于我的",
+    component: UserAboutView,
+    meta: {
+      access: ACCESS_ENUM.USER,
+      // hideInMenu: true,
+    },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/user/UserAboutView.vue"),
+    // component: () =>
+    //   import(/* webpackChunkName: "about" */ "../views/user/UserAboutView.vue"),
   },
 ];

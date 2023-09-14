@@ -3,7 +3,7 @@
     <a-form
       :model="searchParams"
       layout="inline"
-      style="justify-content: center; align-content: center; margin: 25px"
+      style="justify-content: flex-start; align-content: center; margin: 10px"
     >
       <a-form-item field="title" label="用户编号：" tooltip="请输入用户的编号">
         <a-input
@@ -17,23 +17,25 @@
           placeholder="请输入要搜索的用户名称"
         />
       </a-form-item>
-      <a-form-item field="title" label="电话：" tooltip="请输入电话">
-        <a-input v-model="searchParams.phone" placeholder="请输入搜索电话" />
-      </a-form-item>
-      <a-form-item field="title" label="邮箱：" tooltip="请输入邮箱">
-        <a-input v-model="searchParams.email" placeholder="请输入搜索邮箱" />
-      </a-form-item>
+      <!--      <a-form-item field="title" label="电话：" tooltip="请输入电话">-->
+      <!--        <a-input v-model="searchParams.phone" placeholder="请输入搜索电话" />-->
+      <!--      </a-form-item>-->
+      <!--      <a-form-item field="title" label="邮箱：" tooltip="请输入邮箱">-->
+      <!--        <a-input v-model="searchParams.email" placeholder="请输入搜索邮箱" />-->
+      <!--      </a-form-item>-->
       <a-form-item>
-        <a-button type="outline" shape="round" status="normal" @click="doSubmit"
+        <a-button type="primary" status="normal" @click="doSubmit"
           >搜 索
         </a-button>
       </a-form-item>
-      <a-form-item>
-        <a-button type="outline" shape="round" status="normal" @click="loadData"
-          >刷 新
-        </a-button>
-      </a-form-item>
+      <!--      <a-form-item>-->
+      <!--        <a-button type="primary" shape="round" status="normal" @click="loadData"-->
+      <!--          >刷 新-->
+      <!--        </a-button>-->
+      <!--      </a-form-item>-->
     </a-form>
+    <a-divider size="0" />
+
     <a-table
       :column-resizable="true"
       :ref="tableRef"
@@ -82,14 +84,11 @@
       </template>
       <template #optional="{ record }">
         <a-space>
-          <a-button
-            shape="round"
-            type="outline"
-            @click="openModalForm(record.id)"
+          <a-button type="primary" @click="openModalForm(record.id)"
             >修改
           </a-button>
           <a-popconfirm
-            content="确定要删除此题目吗?"
+            content="确定要删除此用户吗?"
             type="error"
             okText="是"
             cancelText="否"
@@ -100,9 +99,7 @@
             "
             @ok="doDelete(record)"
           >
-            <a-button shape="round" type="outline" status="danger"
-              >删除
-            </a-button>
+            <a-button type="primary" status="danger">删除</a-button>
           </a-popconfirm>
         </a-space>
       </template>
@@ -403,7 +400,7 @@ const onChange = async (_: never, currentFile: FileItem) => {
 <style scoped>
 #userManageView {
   padding: 5px;
-  box-shadow: 0px 0px 10px rgba(35, 7, 7, 0.21);
+  /*box-shadow: 0px 0px 10px rgba(35, 7, 7, 0.21);*/
   border-radius: 10px;
 }
 </style>

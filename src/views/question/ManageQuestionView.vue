@@ -15,7 +15,20 @@
       <template #optional="{ record }">
         <a-space>
           <a-button type="primary" @click="doUpdate(record)"> 修改</a-button>
-          <a-button status="danger" @click="doDelete(record)">删除</a-button>
+          <a-popconfirm
+            content="确定要删除此题目吗?"
+            type="error"
+            okText="是"
+            cancelText="否"
+            @cancel="
+              () => {
+                console.log(`已取消`);
+              }
+            "
+            @ok="doDelete(record)"
+          >
+            <a-button type="primary" status="danger">删除</a-button>
+          </a-popconfirm>
         </a-space>
       </template>
     </a-table>

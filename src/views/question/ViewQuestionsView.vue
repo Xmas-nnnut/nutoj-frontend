@@ -32,7 +32,9 @@
               </template>
             </a-card>
           </a-tab-pane>
-          <a-tab-pane key="answer" title="答案"> 暂时无法查看答案</a-tab-pane>
+          <a-tab-pane key="answer" title="答案">
+            <MdViewer :value="answer || ''" />
+          </a-tab-pane>
           <a-tab-pane key="comment" title="评论" disabled> 评论区</a-tab-pane>
         </a-tabs>
       </a-col>
@@ -101,6 +103,18 @@ const loadData = async () => {
     message.error("加载失败，" + res.message);
   }
 };
+
+const answer =
+  "### 答案\n" +
+  "```java\n" +
+  "public class Main {\n" +
+  "    public static void main(String[] args) {\n" +
+  "        int a = Integer.parseInt(args[0]);\n" +
+  "        int b = Integer.parseInt(args[1]);\n" +
+  "        System.out.println((a + b));\n" +
+  "    }\n" +
+  "}\n" +
+  "```";
 
 const form = ref<QuestionSubmitAddRequest>({
   language: "java",

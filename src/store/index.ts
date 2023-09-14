@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+
 import user from "@/store/user";
 
 export default createStore({
@@ -10,3 +11,11 @@ export default createStore({
     user,
   },
 });
+
+// import { useUserStore } from "@/store/user";
+//
+// export default function useStore() {
+//   return {
+//     user: useUserStore(),
+//   };
+// }

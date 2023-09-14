@@ -27,11 +27,12 @@ export default {
 
 <style scoped>
 #basicLayout {
+  background: #efefef;
 }
 
 #basicLayout .header {
-  margin-bottom: 16px;
-  box-shadow: #eee 1px 1px 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   /*position: -webkit-sticky;*/
   /*position: sticky;*/
   /*top: 0;*/
@@ -39,15 +40,18 @@ export default {
 
 #basicLayout .content {
   background: #fefefe;
-  margin-bottom: 20px;
-  margin-left: 5%;
-  margin-right: 5%;
-  /*padding: 20px;*/
+  margin: 1.5% 2%;
+  padding: 1% 3%;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
 #basicLayout .footer {
-  background: #efefef;
+  background: #fefefe;
   padding: 16px;
   text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 </style>

@@ -1,7 +1,10 @@
 <template>
   <div id="questionSubmitView">
-    <a-divider size="0" />
-    <a-form :model="searchParams" layout="inline">
+    <a-form
+      :model="searchParams"
+      layout="inline"
+      style="justify-content: flex-start; align-content: center; margin: 10px"
+    >
       <a-form-item field="questionId" label="题号" style="min-width: 240px">
         <a-input v-model="searchParams.questionId" placeholder="请输入" />
       </a-form-item>
