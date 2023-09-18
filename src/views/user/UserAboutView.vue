@@ -62,12 +62,12 @@
         <a-form-item field="用户名称" label="账号 :">
           <a-input v-model="updateForm.userName" placeholder="请输入用户名称" />
         </a-form-item>
-        <a-form-item field="邮箱" label="邮箱 :">
-          <a-input v-model="updateForm.email" placeholder="请输入邮箱" />
-        </a-form-item>
-        <a-form-item field="电话" label="电话 :">
-          <a-input v-model="updateForm.phone" placeholder="请输入电话号码" />
-        </a-form-item>
+        <!--        <a-form-item field="邮箱" label="邮箱 :">-->
+        <!--          <a-input v-model="updateForm.email" placeholder="请输入邮箱" />-->
+        <!--        </a-form-item>-->
+        <!--        <a-form-item field="电话" label="电话 :">-->
+        <!--          <a-input v-model="updateForm.phone" placeholder="请输入电话号码" />-->
+        <!--        </a-form-item>-->
         <a-form-item field="userProfile" label="简介 :">
           <a-textarea
             v-model="updateForm.userProfile"
@@ -135,14 +135,14 @@ const data = [
     label: "用户角色：",
     value: loginUser.userRole === "user" ? "普通用户" : "管理员",
   },
-  {
-    label: "邮箱：",
-    value: loginUser.email !== "" ? loginUser.email : "未填写",
-  },
-  {
-    label: "电话：",
-    value: loginUser.phone !== "" ? loginUser.phone : "未填写",
-  },
+  // {
+  //   label: "邮箱：",
+  //   value: loginUser.email !== "" ? loginUser.email : "未填写",
+  // },
+  // {
+  //   label: "电话：",
+  //   value: loginUser.phone !== "" ? loginUser.phone : "未填写",
+  // },
   {
     label: "当前状态：",
     value: loginUser.userState !== "" ? loginUser.userState : "暂无简介",

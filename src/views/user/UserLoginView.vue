@@ -56,6 +56,8 @@ const handleSubmit = async () => {
   // 登录成功跳转到主页
   if (res.code === 0) {
     await store.dispatch("user/getLoginUser");
+    // 将token保存在localStorage中
+    localStorage.setItem("token", res.data.token);
     message.success("登录成功，" + res.message);
     router.push({
       path: "/",

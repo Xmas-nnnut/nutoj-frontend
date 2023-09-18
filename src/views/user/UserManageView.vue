@@ -112,21 +112,21 @@
       @cancel="closeModel"
       unmountOnClose
     >
-      <div style="text-align: center">
-        <a-upload
-          action="/"
-          :fileList="file ? [file] : []"
-          :show-file-list="false"
-          @change="onChange"
-          :custom-request="uploadAvatar"
-        >
-          <template #upload-button>
-            <a-avatar :size="70" shape="circle">
-              <img alt="头像" :src="userInfo?.userAvatar" />
-            </a-avatar>
-          </template>
-        </a-upload>
-      </div>
+      <!--      <div style="text-align: center">-->
+      <!--        <a-upload-->
+      <!--          action="/"-->
+      <!--          :fileList="file ? [file] : []"-->
+      <!--          :show-file-list="false"-->
+      <!--          @change="onChange"-->
+      <!--          :custom-request="uploadAvatar"-->
+      <!--        >-->
+      <!--          <template #upload-button>-->
+      <!--            <a-avatar :size="70" shape="circle">-->
+      <!--              <img alt="头像" :src="userInfo?.userAvatar" />-->
+      <!--            </a-avatar>-->
+      <!--          </template>-->
+      <!--        </a-upload>-->
+      <!--      </div>-->
       <a-form
         label-align="right"
         title="个人信息"
