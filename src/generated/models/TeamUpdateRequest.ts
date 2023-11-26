@@ -3,12 +3,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type UserVO = {
-    createTime?: string;
+export type TeamUpdateRequest = {
+    description?: string;
+    expireTime?: string;
     id?: number;
-    userAvatar?: string;
-    userName?: string;
-    userProfile?: string;
-    userRole?: string;
+    name?: string;
+    password?: string;
+    status?: number;
 };
 

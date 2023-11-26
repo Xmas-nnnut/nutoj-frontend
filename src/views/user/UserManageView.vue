@@ -174,7 +174,7 @@ import {
   FileControllerService,
   User,
   UserControllerService,
-} from "../../../generated";
+} from "../../generated";
 import message from "@arco-design/web-vue/es/message";
 import moment from "moment";
 import { useRouter } from "vue-router";

@@ -81,7 +81,7 @@ import { useRoute, useRouter } from "vue-router";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import checkAccess from "@/access/checkAccess";
-import { UserControllerService } from "../../generated";
+import { UserControllerService } from "../generated";
 import ACCESS_ENUM from "@/access/accessEnum";
 
 const router = useRouter();

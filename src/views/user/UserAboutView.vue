@@ -104,7 +104,7 @@ import {
   FileControllerService,
   UserControllerService,
   UserUpdateMyRequest,
-} from "../../../generated";
+} from "../../generated";
 import { ref } from "vue";
 import { FileItem, Message } from "@arco-design/web-vue";
 import { useRouter } from "vue-router";

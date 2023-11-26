@@ -1,6 +1,6 @@
 // initial state
 import ACCESS_ENUM from "@/access/accessEnum";
-import { UserControllerService } from "../../generated";
+import { UserControllerService } from "../generated";
 
 import { StoreOptions } from "vuex";
 

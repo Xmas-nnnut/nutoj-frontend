@@ -68,7 +68,7 @@ import {
   Question,
   QuestionControllerService,
   QuestionQueryRequest,
-} from "../../../generated";
+} from "../../generated";
 import message from "@arco-design/web-vue/es/message";
 import * as querystring from "querystring";
 import { useRouter } from "vue-router";

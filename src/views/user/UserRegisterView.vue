@@ -63,7 +63,7 @@
 </template>
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { UserControllerService, UserRegisterRequest } from "../../../generated";
+import { UserControllerService, UserRegisterRequest } from "../../generated";
 import message from "@arco-design/web-vue/es/message";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
