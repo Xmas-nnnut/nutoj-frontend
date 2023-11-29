@@ -1,19 +1,23 @@
 import router from "@/router";
-import store from "@/store";
+// import store from "@/store";
 import ACCESS_ENUM from "@/access/accessEnum";
 import checkAccess from "@/access/checkAccess";
+import useStore from "@/store";
 
 /**
  *  原有的路由拦截、权限校验逻辑放在独立的文件中
  */
 router.beforeEach(async (to, from, next) => {
-  console.log("登陆用户信息", store.state.user.loginUser);
-  let loginUser = store.state.user.loginUser;
+  const store = useStore();
+  const { user } = store;
+  console.log("登陆用户信息", user.loginUser);
+  let loginUser = user.loginUser;
   // 如果之前没登陆过，自动登录
   if (!loginUser || !loginUser.userRole) {
     // 加 await 是为了等用户登录成功之后，再执行后续的代码
-    await store.dispatch("user/getLoginUser");
-    loginUser = store.state.user.loginUser;
+    // await user.dispatch("user/getLoginUser");
+    await user.getLoginUser();
+    loginUser = user.loginUser;
   }
   const needAccess = (to.meta?.access as string) ?? ACCESS_ENUM.NOT_LOGIN;
   // 要跳转的页面必须要登陆

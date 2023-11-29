@@ -11,7 +11,7 @@
             shape="circle"
             :style="{ backgroundColor: '#168CFF' }"
           >
-            {{ store.state.user?.loginUser.userName ?? "未登录" }}
+            {{ user?.loginUser.userName ?? "未登录" }}
           </a-avatar>
         </a-descriptions-item>
       </a-col>
@@ -99,7 +99,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
+import useStore from "@/store";
 import {
   FileControllerService,
   UserControllerService,
@@ -116,21 +117,22 @@ const file = ref();
  * 获取用户信息
  */
 const store = useStore();
-let loginUser = store.state.user.loginUser;
+const { user } = store;
+let loginUser = user.loginUser;
 
 const data = [
   {
     label: "用户名称：",
     value: loginUser.userName,
   },
-  {
-    label: "账号名称：",
-    value: loginUser.userAccount,
-  },
-  {
-    label: "我的简介：",
-    value: loginUser.userProfile,
-  },
+  // {
+  //   label: "账号名称：",
+  //   value: loginUser.userAccount,
+  // },
+  // {
+  //   label: "我的简介：",
+  //   value: loginUser.userProfile,
+  // },
   {
     label: "用户角色：",
     value: loginUser.userRole === "user" ? "普通用户" : "管理员",
@@ -143,24 +145,24 @@ const data = [
   //   label: "电话：",
   //   value: loginUser.phone !== "" ? loginUser.phone : "未填写",
   // },
-  {
-    label: "当前状态：",
-    value: loginUser.userState !== "" ? loginUser.userState : "暂无简介",
-  },
-
-  {
-    label: "创建时间：",
-    value: moment(loginUser.createTime).format("YYYY-MM-DD HH:mm:ss"),
-  },
-  {
-    label: "修改时间：",
-    value: moment(loginUser.updateTime).format("YYYY-MM-DD HH:mm:ss"),
-  },
+  // {
+  //   label: "当前状态：",
+  //   value: loginUser.userState !== "" ? loginUser.userState : "暂无简介",
+  // },
+  //
+  // {
+  //   label: "创建时间：",
+  //   value: moment(loginUser.createTime).format("YYYY-MM-DD HH:mm:ss"),
+  // },
+  // {
+  //   label: "修改时间：",
+  //   value: moment(loginUser.updateTime).format("YYYY-MM-DD HH:mm:ss"),
+  // },
 ];
 
 const visible = ref(false);
 const updateForm = ref<UserUpdateMyRequest>({
-  ...store.state.user?.loginUser,
+  ...user?.loginUser,
 });
 
 // 从表单中获取的用户头像

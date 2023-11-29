@@ -1,7 +1,8 @@
 import { createApp } from "vue";
+import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
+// import store from "./store";
 import ArcoVue from "@arco-design/web-vue";
 import "bytemd/dist/index.css";
 import "@arco-design/web-vue/dist/arco.css";
@@ -11,6 +12,8 @@ import "@/access";
 import ArcoVueIcon from "@arco-design/web-vue/es/icon";
 import { Modal } from "@arco-design/web-vue";
 import "highlight.js/styles/darcula.css";
+
+const store = createPinia();
 
 createApp(App)
   .use(ArcoVue)

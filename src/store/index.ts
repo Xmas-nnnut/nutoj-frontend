@@ -1,21 +1,21 @@
-import { createStore } from "vuex";
+// import { createStore } from "vuex";
+//
+// import user from "@/store/user";
+//
+// export default createStore({
+//   state: {},
+//   getters: {},
+//   mutations: {},
+//   actions: {},
+//   modules: {
+//     user,
+//   },
+// });
 
-import user from "@/store/user";
+import { useUserStore } from "@/store/user";
 
-export default createStore({
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
-  modules: {
-    user,
-  },
+const useStore = () => ({
+  user: useUserStore(),
 });
 
-// import { useUserStore } from "@/store/user";
-//
-// export default function useStore() {
-//   return {
-//     user: useUserStore(),
-//   };
-// }
+export default useStore;

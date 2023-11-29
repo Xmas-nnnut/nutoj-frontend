@@ -66,7 +66,8 @@ import { reactive, ref } from "vue";
 import { UserControllerService, UserRegisterRequest } from "../../generated";
 import message from "@arco-design/web-vue/es/message";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
+import useStore from "@/store";
 
 //表单布局
 const layout = ref("vertical");
@@ -83,6 +84,7 @@ const form = reactive({
 
 const router = useRouter();
 const store = useStore();
+const { user } = store;
 
 /**
  * 提交表单

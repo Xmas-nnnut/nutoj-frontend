@@ -30,14 +30,10 @@
       <div style="text-align: center">
         <a-dropdown trigger="hover">
           <a-avatar :size="50" :style="{ backgroundColor: '#168CFF' }">
-            {{ store.state.user?.loginUser.userName ?? "未登录" }}
+            {{ user?.loginUser.userName ?? "未登录" }}
           </a-avatar>
           <template #content>
-            <template
-              v-if="
-                store.state.user?.loginUser.userRole !== ACCESS_ENUM.NOT_LOGIN
-              "
-            >
+            <template v-if="user?.loginUser.userRole !== ACCESS_ENUM.NOT_LOGIN">
               <a-doption>
                 <template #icon>
                   <icon-idcard />
@@ -79,7 +75,8 @@
 import { routes } from "@/router/routes";
 import { useRoute, useRouter } from "vue-router";
 import { computed, ref } from "vue";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
+import useStore from "@/store";
 import checkAccess from "@/access/checkAccess";
 import { UserControllerService } from "../generated";
 import ACCESS_ENUM from "@/access/accessEnum";
@@ -93,9 +90,7 @@ const visibleRoutes = computed(() => {
       return false;
     }
     // 根据权限过滤菜单
-    if (
-      !checkAccess(store.state.user.loginUser, item?.meta?.access as string)
-    ) {
+    if (!checkAccess(user.loginUser, item?.meta?.access as string)) {
       return false;
     }
     return true;
@@ -118,7 +113,8 @@ const doMenuClick = (key: string) => {
 
 // 获取已存储的状态变量
 const store = useStore();
-store.state.user?.loginUser;
+const { user } = store;
+user?.loginUser;
 
 // 获取相关信息
 
