@@ -1,0 +1,98 @@
+<template>
+  <div id="addTeamView">
+    <h2>创建队伍</h2>
+    <a-form label-align="left" :model="form" :style="{ width: '800px' }">
+      <a-form-item
+        field="name"
+        tooltip="Please enter username"
+        label="队伍名称"
+      >
+        <a-input
+          v-model="form.name"
+          placeholder="please enter your username..."
+        />
+      </a-form-item>
+      <a-form-item
+        field="description"
+        tooltip="Please enter description"
+        label="队伍描述"
+      >
+        <a-textarea
+          v-model="form.description"
+          placeholder="Please enter description"
+          :max-length="{ length: 10, errorOnly: true }"
+          :style="{ height: '200px' }"
+          allow-clear
+          show-word-limit
+        />
+      </a-form-item>
+      <a-form-item field="expireTime" label="队伍过期时间">
+        <a-date-picker
+          v-model="form.expireTime"
+          placeholder="请选择队伍过期时间"
+        />
+      </a-form-item>
+      <a-form-item
+        field="maxNum"
+        label="队伍最多人数"
+        :rules="[{ type: 'number', min: 1, message: '队伍人数不得少于1人' }]"
+      >
+        <a-slider v-model="form.maxNum" :max="10" />
+      </a-form-item>
+      <a-form-item field="status" label="队伍状态">
+        <a-radio-group v-model="form.status">
+          <a-radio value="0">公开</a-radio>
+          <a-radio value="1">私有</a-radio>
+          <a-radio value="2">加密</a-radio>
+        </a-radio-group>
+      </a-form-item>
+      <a-form-item
+        field="password"
+        label="密码"
+        v-if="Number(form.status) === 2"
+      >
+        <a-input-password
+          :style="{ width: '320px' }"
+          placeholder="请输入密码"
+          allow-clear
+        />
+      </a-form-item>
+      <a-form-item>
+        <a-button type="primary" style="min-width: 200px" @click="doSubmit"
+          >创建队伍
+        </a-button>
+      </a-form-item>
+    </a-form>
+    {{ form }}
+  </div>
+</template>
+
+<script setup lang="ts">
+import { TeamControllerService } from "@/generated";
+import message from "@arco-design/web-vue/es/message";
+import { onMounted, ref } from "vue";
+
+let form = ref({
+  name: "",
+  description: "",
+  expireTime: "",
+  maxNum: 1,
+  status: 0,
+  password: "",
+});
+
+const doSubmit = async () => {
+  console.log(form.value);
+  const res = await TeamControllerService.addTeamUsingPost(form.value);
+  if (res.code === 0) {
+    message.success("创建成功");
+  } else {
+    message.error("创建失败，" + res.message);
+  }
+};
+</script>
+
+<style scoped>
+#addTeamView {
+}
+</style>

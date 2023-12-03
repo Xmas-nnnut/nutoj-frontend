@@ -16,9 +16,9 @@ import "highlight.js/styles/darcula.css";
 const store = createPinia();
 
 createApp(App)
-  .use(ArcoVue)
   .use(store)
   .use(router)
+  .use(ArcoVue)
   .use(ArcoVueIcon)
   .use(Modal)
   .mount("#app");

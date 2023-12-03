@@ -49,6 +49,7 @@ export type { QuestionVO } from './models/QuestionVO';
 export type { Team } from './models/Team';
 export type { TeamAddRequest } from './models/TeamAddRequest';
 export type { TeamJoinRequest } from './models/TeamJoinRequest';
+export type { TeamQueryRequest } from './models/TeamQueryRequest';
 export type { TeamQuitRequest } from './models/TeamQuitRequest';
 export type { TeamUpdateRequest } from './models/TeamUpdateRequest';
 export type { TeamUserVO } from './models/TeamUserVO';

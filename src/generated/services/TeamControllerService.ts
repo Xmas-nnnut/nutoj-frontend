@@ -11,6 +11,7 @@ import type { BaseResponse_Team_ } from '../models/BaseResponse_Team_';
 import type { DeleteRequest } from '../models/DeleteRequest';
 import type { TeamAddRequest } from '../models/TeamAddRequest';
 import type { TeamJoinRequest } from '../models/TeamJoinRequest';
+import type { TeamQueryRequest } from '../models/TeamQueryRequest';
 import type { TeamQuitRequest } from '../models/TeamQuitRequest';
 import type { TeamUpdateRequest } from '../models/TeamUpdateRequest';
 
@@ -135,52 +136,18 @@ export class TeamControllerService {
 
     /**
      * listTeams
-     * @param current
-     * @param description
-     * @param id
-     * @param idList
-     * @param maxNum
-     * @param name
-     * @param pageSize
-     * @param searchText
-     * @param sortField
-     * @param sortOrder
-     * @param status
-     * @param userId
+     * @param teamQueryRequest teamQueryRequest
      * @returns BaseResponse_List_TeamUserVO_ OK
+     * @returns any Created
      * @throws ApiError
      */
-    public static listTeamsUsingGet(
-        current?: number,
-        description?: string,
-        id?: number,
-        idList?: Array<number>,
-        maxNum?: number,
-        name?: string,
-        pageSize?: number,
-        searchText?: string,
-        sortField?: string,
-        sortOrder?: string,
-        status?: number,
-        userId?: number,
-    ): CancelablePromise<BaseResponse_List_TeamUserVO_> {
+    public static listTeamsUsingPost(
+        teamQueryRequest: TeamQueryRequest,
+    ): CancelablePromise<BaseResponse_List_TeamUserVO_ | any> {
         return __request(OpenAPI, {
-            method: 'GET',
+            method: 'POST',
             url: '/api/team/list',
-            query: {
-                'current': current,
-                'description': description,
-                'id': id,
-                'idList': idList,
-                'maxNum': maxNum,
-                'name': name,
-                'pageSize': pageSize,
-                'searchText': searchText,
-                'sortField': sortField,
-                'sortOrder': sortOrder,
-                'status': status,
-                'userId': userId,
-            },
+            body: teamQueryRequest,
             errors: {
                 401: `Unauthorized`,
                 403: `Forbidden`,
@@ -191,52 +158,18 @@ export class TeamControllerService {
 
     /**
      * listMyCreateTeams
-     * @param current
-     * @param description
-     * @param id
-     * @param idList
-     * @param maxNum
-     * @param name
-     * @param pageSize
-     * @param searchText
-     * @param sortField
-     * @param sortOrder
-     * @param status
-     * @param userId
+     * @param teamQueryRequest teamQueryRequest
      * @returns BaseResponse_List_TeamUserVO_ OK
+     * @returns any Created
      * @throws ApiError
      */
-    public static listMyCreateTeamsUsingGet(
-        current?: number,
-        description?: string,
-        id?: number,
-        idList?: Array<number>,
-        maxNum?: number,
-        name?: string,
-        pageSize?: number,
-        searchText?: string,
-        sortField?: string,
-        sortOrder?: string,
-        status?: number,
-        userId?: number,
-    ): CancelablePromise<BaseResponse_List_TeamUserVO_> {
+    public static listMyCreateTeamsUsingPost(
+        teamQueryRequest: TeamQueryRequest,
+    ): CancelablePromise<BaseResponse_List_TeamUserVO_ | any> {
         return __request(OpenAPI, {
-            method: 'GET',
+            method: 'POST',
             url: '/api/team/list/my/create',
-            query: {
-                'current': current,
-                'description': description,
-                'id': id,
-                'idList': idList,
-                'maxNum': maxNum,
-                'name': name,
-                'pageSize': pageSize,
-                'searchText': searchText,
-                'sortField': sortField,
-                'sortOrder': sortOrder,
-                'status': status,
-                'userId': userId,
-            },
+            body: teamQueryRequest,
             errors: {
                 401: `Unauthorized`,
                 403: `Forbidden`,
@@ -247,52 +180,18 @@ export class TeamControllerService {
 
     /**
      * listMyJoinTeams
-     * @param current
-     * @param description
-     * @param id
-     * @param idList
-     * @param maxNum
-     * @param name
-     * @param pageSize
-     * @param searchText
-     * @param sortField
-     * @param sortOrder
-     * @param status
-     * @param userId
+     * @param teamQueryRequest teamQueryRequest
      * @returns BaseResponse_List_TeamUserVO_ OK
+     * @returns any Created
      * @throws ApiError
      */
-    public static listMyJoinTeamsUsingGet(
-        current?: number,
-        description?: string,
-        id?: number,
-        idList?: Array<number>,
-        maxNum?: number,
-        name?: string,
-        pageSize?: number,
-        searchText?: string,
-        sortField?: string,
-        sortOrder?: string,
-        status?: number,
-        userId?: number,
-    ): CancelablePromise<BaseResponse_List_TeamUserVO_> {
+    public static listMyJoinTeamsUsingPost(
+        teamQueryRequest: TeamQueryRequest,
+    ): CancelablePromise<BaseResponse_List_TeamUserVO_ | any> {
         return __request(OpenAPI, {
-            method: 'GET',
+            method: 'POST',
             url: '/api/team/list/my/join',
-            query: {
-                'current': current,
-                'description': description,
-                'id': id,
-                'idList': idList,
-                'maxNum': maxNum,
-                'name': name,
-                'pageSize': pageSize,
-                'searchText': searchText,
-                'sortField': sortField,
-                'sortOrder': sortOrder,
-                'status': status,
-                'userId': userId,
-            },
+            body: teamQueryRequest,
             errors: {
                 401: `Unauthorized`,
                 403: `Forbidden`,
@@ -303,52 +202,18 @@ export class TeamControllerService {
 
     /**
      * listTeamsByPage
-     * @param current
-     * @param description
-     * @param id
-     * @param idList
-     * @param maxNum
-     * @param name
-     * @param pageSize
-     * @param searchText
-     * @param sortField
-     * @param sortOrder
-     * @param status
-     * @param userId
+     * @param teamQueryRequest teamQueryRequest
      * @returns BaseResponse_Page_Team_ OK
+     * @returns any Created
      * @throws ApiError
      */
-    public static listTeamsByPageUsingGet(
-        current?: number,
-        description?: string,
-        id?: number,
-        idList?: Array<number>,
-        maxNum?: number,
-        name?: string,
-        pageSize?: number,
-        searchText?: string,
-        sortField?: string,
-        sortOrder?: string,
-        status?: number,
-        userId?: number,
-    ): CancelablePromise<BaseResponse_Page_Team_> {
+    public static listTeamsByPageUsingPost(
+        teamQueryRequest: TeamQueryRequest,
+    ): CancelablePromise<BaseResponse_Page_Team_ | any> {
         return __request(OpenAPI, {
-            method: 'GET',
+            method: 'POST',
             url: '/api/team/list/page',
-            query: {
-                'current': current,
-                'description': description,
-                'id': id,
-                'idList': idList,
-                'maxNum': maxNum,
-                'name': name,
-                'pageSize': pageSize,
-                'searchText': searchText,
-                'sortField': sortField,
-                'sortOrder': sortOrder,
-                'status': status,
-                'userId': userId,
-            },
+            body: teamQueryRequest,
             errors: {
                 401: `Unauthorized`,
                 403: `Forbidden`,

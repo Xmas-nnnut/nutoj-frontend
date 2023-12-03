@@ -14,6 +14,8 @@ import ManageQuestionView from "@/views/question/ManageQuestionView.vue";
 import QuestionsView from "@/views/question/QuestionsView.vue";
 import QuestionsSubmitView from "@/views/question/QuestionsSubmitView.vue";
 import ViewQuestionsView from "@/views/question/ViewQuestionsView.vue";
+import TeamsView from "@/views/team/TeamsView.vue";
+import AddTeamView from "@/views/team/AddTeamView.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -50,6 +52,19 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/questions_submit",
     name: "浏览题目提交记录",
     component: QuestionsSubmitView,
+  },
+  {
+    path: "/teams",
+    name: "浏览队伍",
+    component: TeamsView,
+  },
+  {
+    path: "/add/team",
+    name: "创建队伍",
+    component: AddTeamView,
+    meta: {
+      // access: ACCESS_ENUM.ADMIN,
+    },
   },
   {
     path: "/view/question/:id",

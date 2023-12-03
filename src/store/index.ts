@@ -1,3 +1,11 @@
+import { useUserStore } from "@/store/user";
+
+const useStore = () => ({
+  user: useUserStore(),
+});
+
+export default useStore;
+
 // import { createStore } from "vuex";
 //
 // import user from "@/store/user";
@@ -11,11 +19,3 @@
 //     user,
 //   },
 // });
-
-import { useUserStore } from "@/store/user";
-
-const useStore = () => ({
-  user: useUserStore(),
-});
-
-export default useStore;
