@@ -24,27 +24,44 @@
         justify="space-around"
         :style="{ marginBottom: '20px' }"
       >
-        <a-col v-for="value in dataList" :key="value.id" :span="8">
+        <a-col v-for="team in dataList" :key="team.id" :span="8">
           <a-card :bordered="true" hoverable>
             <template #actions>
-              <a-tooltip content="非公开队伍">
-                <span v-if="value.status !== 0" class="icon-hover">
-                  <icon-lock />
+              <span>
+                <a-tooltip content="加密队伍">
+                  <span v-if="team.status === 1" class="icon-hover">
+                    <icon-lock />
+                  </span>
+                </a-tooltip>
+                <a-tooltip content="私密队伍">
+                  <span v-if="team.status === 2" class="icon-hover">
+                    <icon-eye-invisible />
+                  </span>
+                </a-tooltip>
+              </span>
+              <a-tooltip content="加入队伍">
+                <span class="icon-hover" @click="doJoinTeam(team.id)">
+                  <icon-user-add />
                 </span>
               </a-tooltip>
-              <a-tooltip content="加入队伍">
-                <span class="icon-hover"> <icon-user-add /> </span>
-              </a-tooltip>
               <a-tooltip content="分享队伍">
-                <span class="icon-hover"> <IconShareInternal /> </span>
+                <span class="icon-hover" @click="doShareTeam(team.id)">
+                  <IconShareInternal />
+                </span>
               </a-tooltip>
               <a-dropdown trigger="hover">
-                <span v-if="value.userId == loginUser.id" class="icon-hover">
+                <span v-if="team.userId == loginUser.id" class="icon-hover">
                   <IconMore />
                 </span>
                 <template #content>
-                  <a-doption> <icon-edit /> 修改队伍 </a-doption>
-                  <a-doption> <icon-delete /> 解散队伍 </a-doption>
+                  <a-doption @click="toTeamPage(team)">
+                    <icon-edit />
+                    修改队伍
+                  </a-doption>
+                  <a-doption>
+                    <icon-delete />
+                    解散队伍
+                  </a-doption>
                 </template>
               </a-dropdown>
             </template>
@@ -62,7 +79,7 @@
                 />
               </div>
             </template>
-            <a-card-meta :title="value.name" :description="value.description">
+            <a-card-meta :title="team.name" :description="team.description">
               <template #avatar>
                 <div
                   :style="{
@@ -103,8 +120,6 @@ import * as querystring from "querystring";
 import { useRouter } from "vue-router";
 import moment from "moment";
 import useStore from "@/store";
-
-const tableRef = ref();
 
 const dataList = ref([]);
 const total = ref(0);
@@ -253,13 +268,41 @@ const onChange = (current: number) => {
 const router = useRouter();
 
 /**
- * 跳转到做题页面
+ * 跳转到队伍页面
  * @param team
  */
 const toTeamPage = (team: Team) => {
   router.push({
     path: `/view/team/${team.id}`,
   });
+};
+
+/**
+ * 加入队伍
+ * @param id
+ */
+const doJoinTeam = async (id: number) => {
+  // const res = await TeamControllerService.addTeamUsingPost(id);
+  const res = {
+    code: 0,
+  };
+  if (res.code === 0) {
+    message.success("加入成功");
+  } else {
+    message.error("加入失败");
+  }
+};
+
+const doShareTeam = async (id: number) => {
+  // const res = await TeamControllerService.addTeamUsingPost(id);
+  const res = {
+    code: 0,
+  };
+  if (res.code === 0) {
+    message.success("分享成功");
+  } else {
+    message.error("分享失败");
+  }
 };
 
 /**

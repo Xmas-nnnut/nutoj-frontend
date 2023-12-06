@@ -16,6 +16,7 @@ import QuestionsSubmitView from "@/views/question/QuestionsSubmitView.vue";
 import ViewQuestionsView from "@/views/question/ViewQuestionsView.vue";
 import TeamsView from "@/views/team/TeamsView.vue";
 import AddTeamView from "@/views/team/AddTeamView.vue";
+import ManageTeamsView from "@/views/team/ManageTeamsView.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -92,6 +93,14 @@ export const routes: Array<RouteRecordRaw> = [
       access: ACCESS_ENUM.ADMIN,
       hideInMenu: true,
     },
+  },
+  {
+    path: "/manage/team",
+    name: "管理队伍",
+    component: ManageTeamsView,
+    // meta: {
+    //   access: ACCESS_ENUM.ADMIN,
+    // },
   },
   {
     path: "/manage/question",

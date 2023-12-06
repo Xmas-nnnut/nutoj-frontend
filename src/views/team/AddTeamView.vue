@@ -1,26 +1,20 @@
 <template>
   <div id="addTeamView">
     <h2>创建队伍</h2>
+    <a-divider size="0" />
     <a-form label-align="left" :model="form" :style="{ width: '800px' }">
-      <a-form-item
-        field="name"
-        tooltip="Please enter username"
-        label="队伍名称"
-      >
-        <a-input
-          v-model="form.name"
-          placeholder="please enter your username..."
-        />
+      <a-form-item field="name" tooltip="请输入队名" label="队伍名称">
+        <a-input v-model="form.name" placeholder="请输入队名..." />
       </a-form-item>
       <a-form-item
         field="description"
-        tooltip="Please enter description"
+        tooltip="描述不超过n个字"
         label="队伍描述"
       >
         <a-textarea
           v-model="form.description"
-          placeholder="Please enter description"
-          :max-length="{ length: 10, errorOnly: true }"
+          placeholder="请输入描述..."
+          :max-length="{ length: 100, errorOnly: true }"
           :style="{ height: '200px' }"
           allow-clear
           show-word-limit
@@ -52,6 +46,7 @@
         v-if="Number(form.status) === 2"
       >
         <a-input-password
+          v-model="form.password"
           :style="{ width: '320px' }"
           placeholder="请输入密码"
           allow-clear
@@ -63,7 +58,6 @@
         </a-button>
       </a-form-item>
     </a-form>
-    {{ form }}
   </div>
 </template>
 
@@ -71,6 +65,9 @@
 import { TeamControllerService } from "@/generated";
 import message from "@arco-design/web-vue/es/message";
 import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 let form = ref({
   name: "",
@@ -86,6 +83,10 @@ const doSubmit = async () => {
   const res = await TeamControllerService.addTeamUsingPost(form.value);
   if (res.code === 0) {
     message.success("创建成功");
+    await router.push({
+      path: `/teams`,
+      replace: true,
+    });
   } else {
     message.error("创建失败，" + res.message);
   }

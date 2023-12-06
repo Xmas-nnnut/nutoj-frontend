@@ -12,6 +12,9 @@ import "@/access";
 import ArcoVueIcon from "@arco-design/web-vue/es/icon";
 import { Modal } from "@arco-design/web-vue";
 import "highlight.js/styles/darcula.css";
+// 引入日历组件
+import "es-calendar/lib/style.css";
+import Calendar from "es-calendar";
 
 const store = createPinia();
 
@@ -21,4 +24,5 @@ createApp(App)
   .use(ArcoVue)
   .use(ArcoVueIcon)
   .use(Modal)
+  .component("es-calendar", Calendar)
   .mount("#app");
