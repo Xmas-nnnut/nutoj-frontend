@@ -30,23 +30,35 @@
                 <IconShareInternal />
               </span>
             </a-tooltip>
-            <a-dropdown trigger="hover">
+            <a-dropdown trigger="hover" :hide-on-select="false">
               <span class="icon-hover">
                 <IconMore />
               </span>
               <template #content>
-                <a-doption @click="toTeamPage(team)">
+                <a-doption @click="doUpdateTeam(team)">
                   <icon-edit />
                   修改队伍
                 </a-doption>
-                <a-doption>
-                  <icon-export @click="doQuitTeam(team.id)" />
-                  退出队伍
-                </a-doption>
-                <a-doption>
-                  <icon-delete @click="doDeleteTeam(team.id)" />
-                  解散队伍
-                </a-doption>
+                <a-popconfirm
+                  content="您确定要退出队伍吗?"
+                  type="warning"
+                  @ok="doQuitTeam(team)"
+                >
+                  <a-doption>
+                    <icon-export />
+                    退出队伍
+                  </a-doption>
+                </a-popconfirm>
+                <a-popconfirm
+                  content="您确定要解散队伍吗?"
+                  type="warning"
+                  @ok="doDeleteTeam(team)"
+                >
+                  <a-doption>
+                    <icon-delete />
+                    解散队伍
+                  </a-doption>
+                </a-popconfirm>
               </template>
             </a-dropdown>
           </template>
@@ -113,15 +125,21 @@
               </a-tooltip>
             </span>
             <a-tooltip content="分享队伍">
-              <span class="icon-hover" @click="doShareTeam(team.id)">
+              <span class="icon-hover" @click="doShareTeam(team)">
                 <IconShareInternal />
               </span>
             </a-tooltip>
-            <a-tooltip content="退出队伍">
-              <span class="icon-hover" @click="doQuitTeam(team.id)">
-                <icon-export />
-              </span>
-            </a-tooltip>
+            <a-popconfirm
+              content="您确定要退出队伍吗?"
+              type="warning"
+              @ok="doQuitTeam(team)"
+            >
+              <a-tooltip content="退出队伍">
+                <span class="icon-hover">
+                  <icon-export />
+                </span>
+              </a-tooltip>
+            </a-popconfirm>
           </template>
           <template #extra>
             <div class="captain" style="padding-top: 4%">
@@ -420,15 +438,22 @@ const onChange = (current: number) => {
 const router = useRouter();
 
 /**
- * 跳转到队伍页面
+ * 更新队伍
  * @param team
  */
-const toTeamPage = (team: Team) => {
+const doUpdateTeam = (team: Team) => {
   router.push({
-    path: `/view/team/${team.id}`,
+    path: "/update/team",
+    query: {
+      id: team.id,
+    },
   });
 };
 
+/**
+ * 分享队伍
+ * @param id
+ */
 const doShareTeam = async (id: number) => {
   // const res = await TeamControllerService.addTeamUsingPost(id);
   const res = {
@@ -438,6 +463,38 @@ const doShareTeam = async (id: number) => {
     message.success("分享成功");
   } else {
     message.error("分享失败");
+  }
+};
+
+/**
+ * 删除队伍
+ * @param team
+ */
+const doDeleteTeam = async (team: Team) => {
+  // const res = await TeamControllerService.deleteTeamUsingPost(team);
+  const res = {
+    code: 0,
+  };
+  if (res.code === 0) {
+    message.success("删除成功");
+  } else {
+    message.error("删除失败");
+  }
+};
+
+/**
+ * 退出队伍
+ * @param team
+ */
+const doQuitTeam = async (team: Team) => {
+  // const res = await TeamControllerService.quitTeamUsingPost(team);
+  const res = {
+    code: 0,
+  };
+  if (res.code === 0) {
+    message.success("退出成功");
+  } else {
+    message.error("退出失败");
   }
 };
 

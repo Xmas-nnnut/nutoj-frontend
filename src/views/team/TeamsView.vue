@@ -39,31 +39,38 @@
                   </span>
                 </a-tooltip>
               </span>
-              <a-tooltip content="加入队伍">
-                <span class="icon-hover" @click="doJoinTeam(team.id)">
-                  <icon-user-add />
-                </span>
-              </a-tooltip>
+              <a-divider direction="vertical" />
+              <a-popconfirm
+                content="您确定要加入队伍吗?"
+                type="warning"
+                @ok="doJoinTeam(team)"
+              >
+                <a-tooltip content="加入队伍">
+                  <span class="icon-hover">
+                    <icon-user-add />
+                  </span>
+                </a-tooltip>
+              </a-popconfirm>
               <a-tooltip content="分享队伍">
                 <span class="icon-hover" @click="doShareTeam(team.id)">
                   <IconShareInternal />
                 </span>
               </a-tooltip>
-              <a-dropdown trigger="hover">
-                <span v-if="team.userId == loginUser.id" class="icon-hover">
-                  <IconMore />
-                </span>
-                <template #content>
-                  <a-doption @click="toTeamPage(team)">
-                    <icon-edit />
-                    修改队伍
-                  </a-doption>
-                  <a-doption>
-                    <icon-delete />
-                    解散队伍
-                  </a-doption>
-                </template>
-              </a-dropdown>
+              <!--              <a-dropdown trigger="hover">-->
+              <!--                <span v-if="team.userId == loginUser.id" class="icon-hover">-->
+              <!--                  <IconMore />-->
+              <!--                </span>-->
+              <!--                <template #content>-->
+              <!--                  <a-doption @click="toTeamPage(team)">-->
+              <!--                    <icon-edit />-->
+              <!--                    修改队伍-->
+              <!--                  </a-doption>-->
+              <!--                  <a-doption>-->
+              <!--                    <icon-delete />-->
+              <!--                    解散队伍-->
+              <!--                  </a-doption>-->
+              <!--                </template>-->
+              <!--              </a-dropdown>-->
             </template>
             <template #cover>
               <div
@@ -279,10 +286,10 @@ const toTeamPage = (team: Team) => {
 
 /**
  * 加入队伍
- * @param id
+ * @param team
  */
-const doJoinTeam = async (id: number) => {
-  // const res = await TeamControllerService.addTeamUsingPost(id);
+const doJoinTeam = async (team: Team) => {
+  // const res = await TeamControllerService.addTeamUsingPost(team);
   const res = {
     code: 0,
   };

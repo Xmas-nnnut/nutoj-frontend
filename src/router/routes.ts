@@ -68,6 +68,15 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: "/update/team",
+    name: "更新队伍",
+    component: AddTeamView,
+    meta: {
+      // access: ACCESS_ENUM.ADMIN,
+      hideInMenu: true,
+    },
+  },
+  {
     path: "/view/question/:id",
     name: "在线做题",
     component: ViewQuestionsView,
