@@ -178,15 +178,15 @@
 import { onMounted, ref, watchEffect } from "vue";
 import { Team, TeamControllerService, TeamQueryRequest } from "../../generated";
 import message from "@arco-design/web-vue/es/message";
-import * as querystring from "querystring";
 import { useRouter } from "vue-router";
-import moment from "moment";
 import useStore from "@/store";
 
 const dataCreatList = ref([]);
 const dataJoinList = ref([]);
 const totalCreat = ref(0);
 const totalJoin = ref(0);
+const teamIdList = ref([]);
+const teamUserNameList = ref<string[]>([]);
 
 /**
  * 获取登录用户信息
@@ -196,218 +196,218 @@ const { user } = store;
 let loginUser = user.loginUser;
 
 const searchParams = ref<TeamQueryRequest>({
-  id: Number(loginUser.id),
-  // searchText: "",
+  searchText: "",
   // pageSize: 6,
   // current: 1,
 });
 
 const loadData = async () => {
-  // const resCreate = await TeamControllerService.listMyCreateTeamsUsingPost(
-  //   searchParams.value
-  // );
-  // const resJoin = await TeamControllerService.listMyJoinTeamsUsingPost(
-  //   searchParams.value
-  // );
-  const resJoin = {
-    code: 0,
-    data: {
-      records: [
-        {
-          id: "1",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "123",
-          status: 1,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "2",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 2,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "3",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 0,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "4",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 0,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "5",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 0,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "6",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 0,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-      ],
-      total: "9",
-      size: "6",
-      current: "1",
-      orders: [],
-      optimizeCountSql: true,
-      searchCount: true,
-      countId: null,
-      maxLimit: null,
-      pages: "2",
-    },
-    message: "ok",
-  };
-  const resCreate = {
-    code: 0,
-    data: {
-      records: [
-        {
-          id: "1",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "123",
-          status: 1,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "2",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 2,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "3",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 0,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "4",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 0,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "5",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 0,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "6",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 0,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-      ],
-      total: "9",
-      size: "6",
-      current: "1",
-      orders: [],
-      optimizeCountSql: true,
-      searchCount: true,
-      countId: null,
-      maxLimit: null,
-      pages: "2",
-    },
-    message: "ok",
-  };
+  // todo
+  const resCreate = await TeamControllerService.listMyCreateTeamsUsingPost(
+    searchParams.value
+  );
+  const resJoin = await TeamControllerService.listMyJoinTeamsUsingPost(
+    searchParams.value
+  );
+  // const resJoin = {
+  //   code: 0,
+  //   data: {
+  //     records: [
+  //       {
+  //         id: "1",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "123",
+  //         status: 1,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "2",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 2,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "3",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 0,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "4",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 0,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "5",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 0,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "6",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 0,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //     ],
+  //     total: "9",
+  //     size: "6",
+  //     current: "1",
+  //     orders: [],
+  //     optimizeCountSql: true,
+  //     searchCount: true,
+  //     countId: null,
+  //     maxLimit: null,
+  //     pages: "2",
+  //   },
+  //   message: "ok",
+  // };
+  // const resCreate = {
+  //   code: 0,
+  //   data: {
+  //     records: [
+  //       {
+  //         id: "1",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "123",
+  //         status: 1,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "2",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 2,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "3",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 0,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "4",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 0,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "5",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 0,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "6",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 0,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //     ],
+  //     total: "9",
+  //     size: "6",
+  //     current: "1",
+  //     orders: [],
+  //     optimizeCountSql: true,
+  //     searchCount: true,
+  //     countId: null,
+  //     maxLimit: null,
+  //     pages: "2",
+  //   },
+  //   message: "ok",
+  // };
   if (resCreate.code === 0) {
-    dataCreatList.value = resCreate.data.records;
-    totalCreat.value = resCreate.data.total;
+    dataCreatList.value = resCreate.data;
+    totalCreat.value = resCreate.data.length;
   } else {
     message.error("加载创建列表失败，" + resCreate.message);
   }
   if (resJoin.code === 0) {
-    dataJoinList.value = resJoin.data.records;
-    totalJoin.value = resJoin.data.total;
+    dataJoinList.value = resJoin.data;
+    totalJoin.value = resJoin.data.length;
   } else {
     message.error("加载加入列表失败，" + resJoin.message);
   }
@@ -454,8 +454,7 @@ const doUpdateTeam = (team: Team) => {
  * 分享队伍
  * @param id
  */
-const doShareTeam = async (id: number) => {
-  // const res = await TeamControllerService.addTeamUsingPost(id);
+const doShareTeam = async (team: Team) => {
   const res = {
     code: 0,
   };
@@ -471,10 +470,11 @@ const doShareTeam = async (id: number) => {
  * @param team
  */
 const doDeleteTeam = async (team: Team) => {
-  // const res = await TeamControllerService.deleteTeamUsingPost(team);
-  const res = {
-    code: 0,
-  };
+  // todo
+  const res = await TeamControllerService.deleteTeamUsingPost({ id: team.id });
+  // const res = {
+  //   code: 0,
+  // };
   if (res.code === 0) {
     message.success("删除成功");
   } else {
@@ -487,10 +487,13 @@ const doDeleteTeam = async (team: Team) => {
  * @param team
  */
 const doQuitTeam = async (team: Team) => {
-  // const res = await TeamControllerService.quitTeamUsingPost(team);
-  const res = {
-    code: 0,
-  };
+  // todo
+  const res = await TeamControllerService.quitTeamUsingPost({
+    teamId: team.id,
+  });
+  // const res = {
+  //   code: 0,
+  // };
   if (res.code === 0) {
     message.success("退出成功");
   } else {

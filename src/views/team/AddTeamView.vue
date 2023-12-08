@@ -36,14 +36,14 @@
       <a-form-item field="status" label="队伍状态">
         <a-radio-group v-model="form.status">
           <a-radio value="0">公开</a-radio>
-          <a-radio value="1">私有</a-radio>
-          <a-radio value="2">加密</a-radio>
+          <a-radio value="1">加密</a-radio>
+          <a-radio value="2">私有</a-radio>
         </a-radio-group>
       </a-form-item>
       <a-form-item
         field="password"
         label="密码"
-        v-if="Number(form.status) === 2"
+        v-if="Number(form.status) !== 0"
       >
         <a-input-password
           v-model="form.password"
@@ -54,7 +54,7 @@
       </a-form-item>
       <a-form-item>
         <a-button type="primary" style="min-width: 200px" @click="doSubmit"
-          >创建队伍
+          >提交
         </a-button>
       </a-form-item>
     </a-form>

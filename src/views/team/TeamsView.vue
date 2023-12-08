@@ -28,49 +28,30 @@
           <a-card :bordered="true" hoverable>
             <template #actions>
               <span>
-                <a-tooltip content="加密队伍">
+                <a-tooltip content="私密队伍">
                   <span v-if="team.status === 1" class="icon-hover">
-                    <icon-lock />
+                    <icon-eye-invisible />
                   </span>
                 </a-tooltip>
-                <a-tooltip content="私密队伍">
+                <a-tooltip content="加密队伍">
                   <span v-if="team.status === 2" class="icon-hover">
-                    <icon-eye-invisible />
+                    <icon-lock />
                   </span>
                 </a-tooltip>
               </span>
               <a-divider direction="vertical" />
-              <a-popconfirm
-                content="您确定要加入队伍吗?"
-                type="warning"
-                @ok="doJoinTeam(team)"
-              >
-                <a-tooltip content="加入队伍">
-                  <span class="icon-hover">
-                    <icon-user-add />
-                  </span>
-                </a-tooltip>
-              </a-popconfirm>
+
+              <a-tooltip content="加入队伍">
+                <span class="icon-hover" @click="doJoinTeam(team)">
+                  <icon-user-add />
+                </span>
+              </a-tooltip>
+
               <a-tooltip content="分享队伍">
                 <span class="icon-hover" @click="doShareTeam(team.id)">
                   <IconShareInternal />
                 </span>
               </a-tooltip>
-              <!--              <a-dropdown trigger="hover">-->
-              <!--                <span v-if="team.userId == loginUser.id" class="icon-hover">-->
-              <!--                  <IconMore />-->
-              <!--                </span>-->
-              <!--                <template #content>-->
-              <!--                  <a-doption @click="toTeamPage(team)">-->
-              <!--                    <icon-edit />-->
-              <!--                    修改队伍-->
-              <!--                  </a-doption>-->
-              <!--                  <a-doption>-->
-              <!--                    <icon-delete />-->
-              <!--                    解散队伍-->
-              <!--                  </a-doption>-->
-              <!--                </template>-->
-              <!--              </a-dropdown>-->
             </template>
             <template #cover>
               <div
@@ -116,18 +97,48 @@
       />
     </div>
     <a-divider size="0" />
+    <a-modal
+      v-model:visible="visible"
+      title="加入队伍"
+      @ok="handleOk"
+      @cancel="handleCancel"
+    >
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding-bottom: 5%;
+        "
+      >
+        您确定要加入改队伍吗？
+      </div>
+      <a-form :model="form" v-if="visibleTable">
+        <a-form-item field="password" label="请输入密码：">
+          <a-input-password
+            v-model="form.password"
+            :style="{ width: '80%' }"
+            placeholder="加入加密队伍需要密码"
+            allow-clear
+          />
+        </a-form-item>
+      </a-form>
+    </a-modal>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watchEffect } from "vue";
+import { onMounted, ref, watchEffect, reactive } from "vue";
 import { Team, TeamControllerService, TeamQueryRequest } from "../../generated";
 import message from "@arco-design/web-vue/es/message";
 import * as querystring from "querystring";
 import { useRouter } from "vue-router";
 import moment from "moment";
 import useStore from "@/store";
+import { toFormData } from "axios";
 
+const visible = ref(false);
+const visibleTable = ref(false);
 const dataList = ref([]);
 const total = ref(0);
 const searchParams = ref<TeamQueryRequest>({
@@ -135,116 +146,123 @@ const searchParams = ref<TeamQueryRequest>({
   pageSize: 6,
   current: 1,
 });
+const password = ref("");
+const form = reactive({
+  password: "",
+});
+const teamId = ref();
 
-/**
- * 获取登录用户信息
- */
-const store = useStore();
-const { user } = store;
-let loginUser = user.loginUser;
+// /**
+//  * 获取登录用户信息
+//  */
+// const store = useStore();
+// const { user } = store;
+// let loginUser = user.loginUser;
 
 const loadData = async () => {
-  // const res = await TeamControllerService.listTeamsByPageUsingPost(
-  //   searchParams.value
-  // );
-  const res = {
-    code: 0,
-    data: {
-      records: [
-        {
-          id: "1",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "123",
-          status: 1,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "2",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 2,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "3",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 0,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "4",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 0,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "5",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 0,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-        {
-          id: "6",
-          name: "测试",
-          description: "测试",
-          maxNum: 5,
-          expireTime: "2024-01-01T00:00:00.000+00:00",
-          userId: "1693169086479011842",
-          status: 0,
-          password: "",
-          createTime: "2023-11-21T21:44:58.000+00:00",
-          updateTime: "2023-11-21T21:44:58.000+00:00",
-          isDelete: 0,
-        },
-      ],
-      total: "9",
-      size: "6",
-      current: "1",
-      orders: [],
-      optimizeCountSql: true,
-      searchCount: true,
-      countId: null,
-      maxLimit: null,
-      pages: "2",
-    },
-    message: "ok",
-  };
+  // todo
+  const res = await TeamControllerService.listTeamsByPageUsingPost(
+    searchParams.value
+  );
+  // const res = {
+  //   code: 0,
+  //   data: {
+  //     records: [
+  //       {
+  //         id: "1",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "123",
+  //         status: 1,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "2",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 2,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "3",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 0,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "4",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 0,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "5",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 0,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //       {
+  //         id: "6",
+  //         name: "测试",
+  //         description: "测试",
+  //         maxNum: 5,
+  //         expireTime: "2024-01-01T00:00:00.000+00:00",
+  //         userId: "1693169086479011842",
+  //         status: 0,
+  //         password: "",
+  //         createTime: "2023-11-21T21:44:58.000+00:00",
+  //         updateTime: "2023-11-21T21:44:58.000+00:00",
+  //         isDelete: 0,
+  //       },
+  //     ],
+  //     total: "9",
+  //     size: "6",
+  //     current: "1",
+  //     orders: [],
+  //     optimizeCountSql: true,
+  //     searchCount: true,
+  //     countId: null,
+  //     maxLimit: null,
+  //     pages: "2",
+  //   },
+  //   message: "ok",
+  // };
   if (res.code === 0) {
     dataList.value = res.data.records;
     total.value = res.data.total;
+    console.log(dataList);
   } else {
     message.error("加载失败，" + res.message);
   }
@@ -272,32 +290,41 @@ const onChange = (current: number) => {
   console.log("change");
 };
 
-const router = useRouter();
+const handleClick = (team: Team) => {
+  visible.value = true;
+};
 
-/**
- * 跳转到队伍页面
- * @param team
- */
-const toTeamPage = (team: Team) => {
-  router.push({
-    path: `/view/team/${team.id}`,
+const handleOk = async () => {
+  console.log(form);
+  const res = await TeamControllerService.joinTeamUsingPost({
+    teamId: teamId.value,
+    password: form.password,
   });
+  console.log(res);
+  // const res = {
+  //   code: 0,
+  // };
+  if (res.code === 0) {
+    message.success("加入成功");
+    visible.value = false;
+  } else {
+    message.error("加入失败");
+  }
+};
+const handleCancel = () => {
+  visible.value = false;
 };
 
 /**
  * 加入队伍
  * @param team
+ * @param password
  */
-const doJoinTeam = async (team: Team) => {
-  // const res = await TeamControllerService.addTeamUsingPost(team);
-  const res = {
-    code: 0,
-  };
-  if (res.code === 0) {
-    message.success("加入成功");
-  } else {
-    message.error("加入失败");
-  }
+const doJoinTeam = (team: Team) => {
+  visible.value = true;
+  const teamStatus = team.status;
+  visibleTable.value = teamStatus === 2;
+  teamId.value = team.id;
 };
 
 const doShareTeam = async (id: number) => {
@@ -310,6 +337,18 @@ const doShareTeam = async (id: number) => {
   } else {
     message.error("分享失败");
   }
+};
+
+const router = useRouter();
+
+/**
+ * 跳转到队伍页面
+ * @param team
+ */
+const toTeamPage = (team: Team) => {
+  router.push({
+    path: `/view/team/${team.id}`,
+  });
 };
 
 /**
