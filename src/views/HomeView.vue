@@ -1,6 +1,7 @@
 <template>
   <div id="homeView">
     <div class="left">
+      <a-divider size="0" />
       <a-carousel
         :autoPlay="true"
         animation-name="card"
@@ -49,12 +50,30 @@
               </a-typography-paragraph>
             </a-typography>
           </a-tab-pane>
-          <a-tab-pane key="2" title="Tab 2"> 这里是通知2 </a-tab-pane>
-          <a-tab-pane key="3" title="Tab 3"> 这里是通知3 </a-tab-pane>
+          <a-tab-pane key="2" title="Tab 2"> 这里是通知2</a-tab-pane>
+          <a-tab-pane key="3" title="Tab 3"> 这里是通知3</a-tab-pane>
         </a-tabs>
       </div>
     </div>
-    <div class="right">
+    <div class="right" style="display: flex; flex-direction: column">
+      <a-divider size="0" />
+      <div class="statistic">
+        <a-space size="large">
+          <a-statistic
+            title="提交次数"
+            :value="114514"
+            show-group-separator
+            animation
+          />
+          <a-statistic
+            extra="题库数量"
+            :value="2333"
+            show-group-separator
+            animation
+          />
+        </a-space>
+      </div>
+      <a-divider size="1" />
       <div class="calendar">
         <es-calendar theme="light" v-model="date" />
       </div>
@@ -96,6 +115,8 @@ const date = ref(new Date());
 }
 
 .calendar {
+  margin-top: 5%;
+  margin-bottom: 5%;
   width: 320px;
   height: 380px;
   border-radius: 5px;

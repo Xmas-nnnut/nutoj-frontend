@@ -65,33 +65,6 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/teams",
-    name: "浏览队伍",
-    component: TeamsView,
-    meta: {
-      group: "队伍",
-    },
-  },
-  {
-    path: "/add/team",
-    name: "创建队伍",
-    component: AddTeamView,
-    meta: {
-      // access: ACCESS_ENUM.ADMIN,
-      group: "队伍",
-    },
-  },
-  {
-    path: "/update/team",
-    name: "更新队伍",
-    component: AddTeamView,
-    meta: {
-      // access: ACCESS_ENUM.ADMIN,
-      hideInMenu: true,
-      group: "队伍",
-    },
-  },
-  {
     path: "/view/question/:id",
     name: "在线做题",
     component: ViewQuestionsView,
@@ -122,21 +95,48 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/manage/team",
-    name: "管理队伍",
-    component: ManageTeamsView,
-    meta: {
-      // access: ACCESS_ENUM.ADMIN,
-      group: "队伍",
-    },
-  },
-  {
     path: "/manage/question",
     name: "管理题目",
     component: ManageQuestionView,
     meta: {
       access: ACCESS_ENUM.ADMIN,
       group: "题目",
+    },
+  },
+  {
+    path: "/teams",
+    name: "浏览队伍",
+    component: TeamsView,
+    meta: {
+      group: "队伍",
+    },
+  },
+  {
+    path: "/add/team",
+    name: "创建队伍",
+    component: AddTeamView,
+    meta: {
+      // access: ACCESS_ENUM.ADMIN,
+      group: "队伍",
+    },
+  },
+  {
+    path: "/update/team",
+    name: "更新队伍",
+    component: AddTeamView,
+    meta: {
+      // access: ACCESS_ENUM.ADMIN,
+      hideInMenu: true,
+      group: "队伍",
+    },
+  },
+  {
+    path: "/manage/team",
+    name: "管理队伍",
+    component: ManageTeamsView,
+    meta: {
+      // access: ACCESS_ENUM.ADMIN,
+      group: "队伍",
     },
   },
   {
@@ -147,6 +147,21 @@ export const routes: Array<RouteRecordRaw> = [
       access: ACCESS_ENUM.ADMIN,
       group: "无分组",
     },
+  },
+  {
+    path: "/about",
+    name: "关于我的",
+    component: UserAboutView,
+    meta: {
+      access: ACCESS_ENUM.USER,
+      group: "无分组",
+      // hideInMenu: true,
+    },
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    // component: () =>
+    //   import(/* webpackChunkName: "about" */ "../views/user/UserAboutView.vue"),
   },
   {
     path: "/hide",
@@ -182,20 +197,5 @@ export const routes: Array<RouteRecordRaw> = [
     meta: {
       group: "无分组",
     },
-  },
-  {
-    path: "/about",
-    name: "关于我的",
-    component: UserAboutView,
-    meta: {
-      access: ACCESS_ENUM.USER,
-      group: "无分组",
-      // hideInMenu: true,
-    },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () =>
-    //   import(/* webpackChunkName: "about" */ "../views/user/UserAboutView.vue"),
   },
 ];
