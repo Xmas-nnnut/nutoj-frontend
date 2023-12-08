@@ -4,7 +4,6 @@
       <a-menu
         mode="horizontal"
         :selected-keys="selectedKeys"
-        :default-selected-keys="['1']"
         @menu-item-click="doMenuClick"
       >
         <a-menu-item
@@ -17,9 +16,30 @@
             <div class="title">坚果 oj</div>
           </div>
         </a-menu-item>
+
         <a-menu-item v-for="item in visibleRoutes" :key="item.path">
           {{ item.name }}
         </a-menu-item>
+
+        <a-sub-menu key="1">
+          <template #icon>
+            <icon-apps></icon-apps>
+          </template>
+          <template #title>题目</template>
+          <a-menu-item v-for="item in questionRoutes" :key="item.path">
+            {{ item.name }}
+          </a-menu-item>
+        </a-sub-menu>
+
+        <a-sub-menu key="2">
+          <template #icon>
+            <icon-user-group></icon-user-group>
+          </template>
+          <template #title>队伍</template>
+          <a-menu-item v-for="item in teamRoutes" :key="item.path">
+            {{ item.name }}
+          </a-menu-item>
+        </a-sub-menu>
       </a-menu>
     </a-col>
     <a-col
@@ -75,7 +95,6 @@
 import { routes } from "@/router/routes";
 import { useRoute, useRouter } from "vue-router";
 import { computed, ref } from "vue";
-// import { useStore } from "vuex";
 import useStore from "@/store";
 import checkAccess from "@/access/checkAccess";
 import { UserControllerService } from "../generated";
@@ -93,13 +112,48 @@ const visibleRoutes = computed(() => {
     if (!checkAccess(user.loginUser, item?.meta?.access as string)) {
       return false;
     }
+    if (item.meta?.group !== "无分组") {
+      return false;
+    }
     return true;
   });
 });
+const questionRoutes = computed(() => {
+  return routes.filter((item, index) => {
+    if (item.meta?.hideInMenu) {
+      return false;
+    }
+    // 根据权限过滤菜单
+    if (!checkAccess(user.loginUser, item?.meta?.access as string)) {
+      return false;
+    }
+    if (item.meta?.group !== "题目") {
+      return false;
+    }
+    return true;
+  });
+});
+const teamRoutes = computed(() => {
+  return routes.filter((item, index) => {
+    if (item.meta?.hideInMenu) {
+      return false;
+    }
+    // 根据权限过滤菜单
+    if (!checkAccess(user.loginUser, item?.meta?.access as string)) {
+      return false;
+    }
+    if (item.meta?.group !== "队伍") {
+      return false;
+    }
+    return true;
+  });
+});
+// console.log(visibleRoutes);
+// console.log(questionRoutes);
+// console.log(teamRoutes);
 
 // 默认主页
 const selectedKeys = ref(["/"]);
-
 // 路由跳转后，更新选中的菜单项
 router.afterEach((to, from, failure) => {
   selectedKeys.value = [to.path];

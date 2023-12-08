@@ -24,6 +24,7 @@ export const routes: Array<RouteRecordRaw> = [
     name: "用户",
     meta: {
       hideInMenu: true,
+      group: "无分组",
     },
     component: UserLayout,
     children: [
@@ -43,21 +44,33 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "主页",
     component: HomeView,
+    meta: {
+      group: "无分组",
+    },
   },
   {
     path: "/questions",
     name: "浏览题目",
     component: QuestionsView,
+    meta: {
+      group: "题目",
+    },
   },
   {
     path: "/questions_submit",
     name: "浏览题目提交记录",
     component: QuestionsSubmitView,
+    meta: {
+      group: "题目",
+    },
   },
   {
     path: "/teams",
     name: "浏览队伍",
     component: TeamsView,
+    meta: {
+      group: "队伍",
+    },
   },
   {
     path: "/add/team",
@@ -65,6 +78,7 @@ export const routes: Array<RouteRecordRaw> = [
     component: AddTeamView,
     meta: {
       // access: ACCESS_ENUM.ADMIN,
+      group: "队伍",
     },
   },
   {
@@ -74,6 +88,7 @@ export const routes: Array<RouteRecordRaw> = [
     meta: {
       // access: ACCESS_ENUM.ADMIN,
       hideInMenu: true,
+      group: "队伍",
     },
   },
   {
@@ -84,6 +99,7 @@ export const routes: Array<RouteRecordRaw> = [
     meta: {
       access: ACCESS_ENUM.USER,
       hideInMenu: true,
+      group: "题目",
     },
   },
   {
@@ -92,6 +108,7 @@ export const routes: Array<RouteRecordRaw> = [
     component: AddQuestionView,
     meta: {
       access: ACCESS_ENUM.ADMIN,
+      group: "题目",
     },
   },
   {
@@ -100,6 +117,7 @@ export const routes: Array<RouteRecordRaw> = [
     component: AddQuestionView,
     meta: {
       access: ACCESS_ENUM.ADMIN,
+      group: "题目",
       hideInMenu: true,
     },
   },
@@ -107,9 +125,10 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/manage/team",
     name: "管理队伍",
     component: ManageTeamsView,
-    // meta: {
-    //   access: ACCESS_ENUM.ADMIN,
-    // },
+    meta: {
+      // access: ACCESS_ENUM.ADMIN,
+      group: "队伍",
+    },
   },
   {
     path: "/manage/question",
@@ -117,6 +136,7 @@ export const routes: Array<RouteRecordRaw> = [
     component: ManageQuestionView,
     meta: {
       access: ACCESS_ENUM.ADMIN,
+      group: "题目",
     },
   },
   {
@@ -125,6 +145,7 @@ export const routes: Array<RouteRecordRaw> = [
     component: UserManageView,
     meta: {
       access: ACCESS_ENUM.ADMIN,
+      group: "无分组",
     },
   },
   {
@@ -133,6 +154,7 @@ export const routes: Array<RouteRecordRaw> = [
     component: ExampleView,
     meta: {
       hideInMenu: true,
+      group: "无分组",
     },
   },
   {
@@ -141,6 +163,7 @@ export const routes: Array<RouteRecordRaw> = [
     component: NoAuthView,
     meta: {
       hideInMenu: true,
+      group: "无分组",
     },
   },
   {
@@ -149,12 +172,16 @@ export const routes: Array<RouteRecordRaw> = [
     component: AdminView,
     meta: {
       access: ACCESS_ENUM.ADMIN,
+      group: "无分组",
     },
   },
   {
     path: "/example",
     name: "栗子",
     component: ExampleView,
+    meta: {
+      group: "无分组",
+    },
   },
   {
     path: "/about",
@@ -162,6 +189,7 @@ export const routes: Array<RouteRecordRaw> = [
     component: UserAboutView,
     meta: {
       access: ACCESS_ENUM.USER,
+      group: "无分组",
       // hideInMenu: true,
     },
     // route level code-splitting
