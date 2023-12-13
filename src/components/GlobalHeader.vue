@@ -175,6 +175,9 @@ user?.loginUser;
 //退出登录
 const logout = () => {
   UserControllerService.userLogoutUsingPost();
+  // 清除状态保持
+  window.localStorage.clear();
+  // 状态保持清除后刷新页面
   location.reload();
 };
 //模拟登录

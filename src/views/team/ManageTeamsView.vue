@@ -14,14 +14,14 @@
           </a-list-item-meta>
           <template #actions>
             <span>
-              <a-tooltip content="加密队伍">
+              <a-tooltip content="私有队伍">
                 <span v-if="team.status === 1" class="icon-hover">
-                  <icon-lock />
+                  <icon-eye-invisible />
                 </span>
               </a-tooltip>
-              <a-tooltip content="私密队伍">
+              <a-tooltip content="加密队伍">
                 <span v-if="team.status === 2" class="icon-hover">
-                  <icon-eye-invisible />
+                  <icon-lock />
                 </span>
               </a-tooltip>
             </span>
@@ -113,14 +113,14 @@
           </a-list-item-meta>
           <template #actions>
             <span>
-              <a-tooltip content="加密队伍">
+              <a-tooltip content="私有队伍">
                 <span v-if="team.status === 1" class="icon-hover">
-                  <icon-lock />
+                  <icon-eye-invisible />
                 </span>
               </a-tooltip>
-              <a-tooltip content="私密队伍">
+              <a-tooltip content="加密队伍">
                 <span v-if="team.status === 2" class="icon-hover">
-                  <icon-eye-invisible />
+                  <icon-lock />
                 </span>
               </a-tooltip>
             </span>

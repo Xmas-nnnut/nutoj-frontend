@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 // import store from "./store";
 import ArcoVue from "@arco-design/web-vue";
 import "bytemd/dist/index.css";
@@ -17,6 +18,7 @@ import "es-calendar/lib/style.css";
 import Calendar from "es-calendar";
 
 const store = createPinia();
+store.use(piniaPluginPersistedstate);
 
 createApp(App)
   .use(store)
