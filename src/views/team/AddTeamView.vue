@@ -3,7 +3,7 @@
     <h2>创建队伍</h2>
     <a-divider size="0" />
     <a-form label-align="left" :model="form" :style="{ width: '800px' }">
-      <a-form-item field="name" tooltip="请输入队名" label="队伍名称">
+      <a-form-item field="name" label="队伍名称">
         <a-input v-model="form.name" placeholder="请输入队名..." />
       </a-form-item>
       <a-form-item
@@ -29,6 +29,7 @@
       <a-form-item
         field="maxNum"
         label="队伍最多人数"
+        tooltip="队伍人数不得少于1人"
         :rules="[{ type: 'number', min: 1, message: '队伍人数不得少于1人' }]"
       >
         <a-slider v-model="form.maxNum" :max="10" />
@@ -52,6 +53,15 @@
           allow-clear
         />
       </a-form-item>
+      <a-form-item label="队伍封面" disabled tooltip="不可用" help="不可用">
+        <a-upload
+          list-type="picture"
+          action="/"
+          :default-file-list="fileList"
+          :limit="1"
+        />
+      </a-form-item>
+      <a-divider size="0" />
       <a-form-item>
         <a-button type="primary" style="min-width: 200px" @click="doSubmit"
           >提交
@@ -81,6 +91,13 @@ let form = ref({
   password: "",
 });
 
+const fileList = [
+  {
+    uid: "-1",
+    name: "hahhahahahaha.png",
+    url: "//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/9eeb1800d9b78349b24682c3518ac4a3.png~tplv-uwbnlip3yd-webp.webp",
+  },
+];
 /**
  * 根据队伍 id 获取老的数据
  */

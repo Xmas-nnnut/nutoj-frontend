@@ -40,6 +40,16 @@
             {{ item.name }}
           </a-menu-item>
         </a-sub-menu>
+
+        <a-sub-menu key="3">
+          <template #icon>
+            <icon-file></icon-file>
+          </template>
+          <template #title>帖子</template>
+          <a-menu-item v-for="item in postRoutes" :key="item.path">
+            {{ item.name }}
+          </a-menu-item>
+        </a-sub-menu>
       </a-menu>
     </a-col>
     <a-col
@@ -143,6 +153,21 @@ const teamRoutes = computed(() => {
       return false;
     }
     if (item.meta?.group !== "队伍") {
+      return false;
+    }
+    return true;
+  });
+});
+const postRoutes = computed(() => {
+  return routes.filter((item, index) => {
+    if (item.meta?.hideInMenu) {
+      return false;
+    }
+    // 根据权限过滤菜单
+    if (!checkAccess(user.loginUser, item?.meta?.access as string)) {
+      return false;
+    }
+    if (item.meta?.group !== "帖子") {
       return false;
     }
     return true;

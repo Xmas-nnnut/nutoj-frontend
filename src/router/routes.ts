@@ -17,6 +17,11 @@ import ViewQuestionsView from "@/views/question/ViewQuestionsView.vue";
 import TeamsView from "@/views/team/TeamsView.vue";
 import AddTeamView from "@/views/team/AddTeamView.vue";
 import ManageTeamsView from "@/views/team/ManageTeamsView.vue";
+import PostsView from "@/views/post/PostsView.vue";
+import AddPostView from "@/views/post/AddPostView.vue";
+import ManagePostView from "@/views/post/ManagePostView.vue";
+import ViewPostView from "@/views/post/ViewPostView.vue";
+import BoardView from "@/views/BoardView.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -44,6 +49,14 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "主页",
     component: HomeView,
+    meta: {
+      group: "无分组",
+    },
+  },
+  {
+    path: "/board",
+    name: "排行榜",
+    component: BoardView,
     meta: {
       group: "无分组",
     },
@@ -140,12 +153,50 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/manage/user",
-    name: "用户管理",
-    component: UserManageView,
+    path: "/posts",
+    name: "浏览帖子列表",
+    component: PostsView,
+    meta: {
+      group: "帖子",
+    },
+  },
+  {
+    path: "/add/post",
+    name: "创建帖子",
+    component: AddPostView,
+    meta: {
+      // access: ACCESS_ENUM.ADMIN,
+      group: "帖子",
+    },
+  },
+  {
+    path: "/update/post",
+    name: "更新帖子",
+    component: AddPostView,
+    meta: {
+      // access: ACCESS_ENUM.ADMIN,
+      hideInMenu: true,
+      group: "帖子",
+    },
+  },
+  {
+    path: "/manage/post",
+    name: "管理帖子",
+    component: ManagePostView,
     meta: {
       access: ACCESS_ENUM.ADMIN,
-      group: "无分组",
+      group: "帖子",
+    },
+  },
+  {
+    path: "/view/post/:id",
+    name: "浏览帖子详情",
+    component: ViewPostView,
+    props: true,
+    meta: {
+      access: ACCESS_ENUM.USER,
+      hideInMenu: true,
+      group: "帖子",
     },
   },
   {
@@ -164,6 +215,15 @@ export const routes: Array<RouteRecordRaw> = [
     //   import(/* webpackChunkName: "about" */ "../views/user/UserAboutView.vue"),
   },
   {
+    path: "/manage/user",
+    name: "用户管理",
+    component: UserManageView,
+    meta: {
+      access: ACCESS_ENUM.ADMIN,
+      group: "无分组",
+    },
+  },
+  {
     path: "/hide",
     name: "隐藏页面",
     component: ExampleView,
@@ -178,15 +238,6 @@ export const routes: Array<RouteRecordRaw> = [
     component: NoAuthView,
     meta: {
       hideInMenu: true,
-      group: "无分组",
-    },
-  },
-  {
-    path: "/admin",
-    name: "管理员可见",
-    component: AdminView,
-    meta: {
-      access: ACCESS_ENUM.ADMIN,
       group: "无分组",
     },
   },

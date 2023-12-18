@@ -1,6 +1,7 @@
 <template>
   <div id="addQuestionView">
     <h2>创建题目</h2>
+    <a-divider size="0" />
     <a-form :model="form" label-align="left">
       <a-form-item field="title" label="标题">
         <a-input v-model="form.title" placeholder="请输入标题" />
@@ -31,6 +32,7 @@
           :value="form.answer"
           :handle-change="onAnswerChange"
         />
+        <a-divider size="0" />
       </a-form-item>
       <a-form-item label="判题配置" :content-flex="false" :merge-props="false">
         <a-space direction="vertical" style="min-width: 500px">
@@ -74,6 +76,7 @@
           no-style
         >
           <a-space direction="vertical" style="min-width: 640px">
+            <a-divider size="1" />
             <a-form-item
               :field="`form.judgeCase[${index}].input`"
               :label="`输入用例-${index}`"
@@ -99,7 +102,7 @@
             </a-button>
           </a-space>
         </a-form-item>
-        <div style="margin-top: 32px">
+        <div style="margin-top: 5vh">
           <a-button @click="handleAdd" type="outline" status="success"
             >新增测试用例
           </a-button>
@@ -257,6 +260,7 @@ const onAnswerChange = (value: string) => {
 <style scoped>
 #addQuestionView {
 }
+
 :deep(.bytemd-fullscreen.bytemd) {
   z-index: 100;
 }

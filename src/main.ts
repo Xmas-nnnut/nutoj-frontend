@@ -7,6 +7,7 @@ import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import ArcoVue from "@arco-design/web-vue";
 import "bytemd/dist/index.css";
 import "@arco-design/web-vue/dist/arco.css";
+import "juejin-markdown-themes/dist/juejin.min.css"; // 掘金同款样式
 import "@/plugins/axios";
 import "@/access";
 // 额外引入图标库

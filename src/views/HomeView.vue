@@ -28,30 +28,24 @@
       <div class="notice">
         <a-tabs position="top">
           <template #extra>
-            <a-button>Action</a-button>
+            <a-button>刷新一下</a-button>
           </template>
-          <a-tab-pane key="1" title="Tab 1">
-            <a-typography>
-              <a-typography-title :heading="6">这里是通知1</a-typography-title>
-              <a-typography-paragraph>
-                通过2种方式来实现代码沙箱，其中Java原生代码沙箱和Docker代码沙箱这两种实现方式的核心业务流程是相同的，都需要经历以下几个步骤：
-              </a-typography-paragraph>
-              <a-typography-paragraph>
-                1.把用户的代码保存为文件 编译代码，得到class文件 执行Java代码
-              </a-typography-paragraph>
-              <a-typography-paragraph>
-                2.收集整理输出结果 文件清理，释放空间 错误处理，提升程序健壮性
-              </a-typography-paragraph>
-              <a-typography-paragraph>
-                3.区别在于：Java原生代码沙箱是通过Runtime.exec执行命令行操作来执行代码，并通过Process对象的流来获取输出结果，不够安全；
-              </a-typography-paragraph>
-              <a-typography-paragraph>
-                Docker代码沙箱是通过创建隔离的Java容器并且通过exec命令在容器内执行Java代码和获取输出，更加安全。
-              </a-typography-paragraph>
-            </a-typography>
+          <a-tab-pane key="1" title="Notice 1">
+            <MdViewer :value="notice || ''" />
           </a-tab-pane>
-          <a-tab-pane key="2" title="Tab 2"> 这里是通知2</a-tab-pane>
-          <a-tab-pane key="3" title="Tab 3"> 这里是通知3</a-tab-pane>
+          <a-tab-pane key="2" title="Notice 2">
+            <a-typography-title :heading="6"> 测试账号：</a-typography-title>
+            <a-typography-paragraph copyable> test233</a-typography-paragraph>
+            <a-typography-title :heading="6"> 测试密码：</a-typography-title>
+            <a-typography-paragraph copyable> 12345678</a-typography-paragraph>
+          </a-tab-pane>
+          <a-tab-pane key="3" title="Notice 3">
+            <a-typography-title :heading="6" delete> 测试</a-typography-title>
+            <a-typography-paragraph editable v-model:editText="str">
+              {{ str }}
+            </a-typography-paragraph>
+            <a-typography-paragraph mark> {{ str }}</a-typography-paragraph>
+          </a-tab-pane>
         </a-tabs>
       </div>
     </div>
@@ -77,6 +71,13 @@
       <div class="calendar">
         <es-calendar theme="light" v-model="date" />
       </div>
+      <a-divider size="1" />
+      <div class="rate">
+        <span>
+          <a-typography-title :heading="6"> 给个评分吧！</a-typography-title>
+        </span>
+        <span><a-rate grading /></span>
+      </div>
     </div>
   </div>
 </template>
@@ -92,7 +93,24 @@ const images = [
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/24e0dd27418d2291b65db1b21aa62254.png~tplv-uwbnlip3yd-webp.webp",
 ];
 
+const notice =
+  "##### 项目介绍 \n\n" +
+  "系统使用前后端分离的开发模式，前端由 Vue.js + Arco Design 组件库实现，" +
+  "后端基于微服务架构的方法划分为用户管理服务、题库管理服务、代码评测服务、" +
+  "队伍管理服务、帖子管理服务和独立的代码沙箱，" +
+  "使用 Spring Cloud 框架实现服务之间的通信和服务治理，" +
+  "选用 Nacos 作为服务注册中心实现服务发现和注册。\n\n" +
+  "- Redis + JWT 实现用户登录鉴权、Redis + Redission 令牌桶算法限流\n\n" +
+  "- RabbitMQ 解耦判题服务和题目服务\n\n" +
+  "- Markdown 富文本编辑器、Monaco Editor 代码编辑器\n\n" +
+  "- 实现多种设计模式：策略模式、工厂模式、代理模式、模板方法模式\n\n" +
+  "";
+
+const str = ref("Click the icon to edit this text.");
+
 const date = ref(new Date());
+
+// const reload = async () => {};
 </script>
 
 <style scoped>
@@ -102,7 +120,7 @@ const date = ref(new Date());
 
 .left {
   width: 75%;
-  padding-right: 1%;
+  padding-right: 8vh;
 }
 
 .right {
