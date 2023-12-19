@@ -1,101 +1,127 @@
 <template>
   <div id="userInfoView">
-    <a-row justify="center" style="margin: 15px">
-      <a-col style="text-align: center">
-        <a-descriptions-item>
-          <!--      <a-avatar :size="100" shape="circle">-->
-          <!--        <img alt="头像" :src="loginUser.userAvatar" />-->
-          <!--      </a-avatar>-->
-          <a-avatar
-            :size="80"
-            shape="circle"
-            :style="{ backgroundColor: '#168CFF' }"
-          >
-            {{ user?.loginUser.userName ?? "未登录" }}
-          </a-avatar>
-        </a-descriptions-item>
-      </a-col>
-    </a-row>
-    <a-card title="我的信息">
-      <a-descriptions :data="data" size="large" column="1" bordered />
-      <template #extra>
-        <a-badge status="success" text="在线" />
-      </template>
-    </a-card>
-    <a-modal
-      width="30%"
-      :visible="visible"
-      placement="right"
-      @ok="handleOk"
-      @cancel="closeModel"
-      unmountOnClose
-    >
-      <!--      <div style="text-align: center">-->
-      <!--        <a-upload-->
-      <!--          action="/"-->
-      <!--          :fileList="file ? [file] : []"-->
-      <!--          :show-file-list="false"-->
-      <!--          @change="onChange"-->
-      <!--          :custom-request="uploadAvatar"-->
-      <!--        >-->
-      <!--          <template #upload-button>-->
-      <!--            <div-->
-      <!--              class="arco-upload-list-picture custom-upload-avatar"-->
-      <!--              v-if="updateForm.userAvatar"-->
-      <!--            >-->
-      <!--              <a-avatar :size="70" shape="circle">-->
-      <!--                <img alt="头像" :src="userAvatarImg" />-->
-      <!--              </a-avatar>-->
-      <!--              <div class="arco-upload-list-picture-mask">-->
-      <!--                <IconEdit />-->
-      <!--              </div>-->
-      <!--            </div>-->
-      <!--          </template>-->
-      <!--        </a-upload>-->
-      <!--      </div>-->
-      <a-form
-        :model="loginUser"
-        label-align="right"
-        title="个人信息"
-        style="max-width: 480px; margin: 0 auto"
+    <div class="left">
+      <a-divider size="0" />
+      <a-card hoverable>
+        <a-avatar :size="180" shape="square" style="margin-left: 8vh">
+          <img alt="avatar" src="../../assets/SilverWolf.png" />
+        </a-avatar>
+      </a-card>
+      <a-divider size="0" />
+      <a-card title="我的信息" hoverable>
+        <a-descriptions :data="data" size="large" column="1" bordered />
+        <template #extra>
+          <a-button
+            status="success"
+            type="primary"
+            size="mini"
+            style="margin: 10px"
+            @click="toIndex"
+            >返回首页
+          </a-button>
+          <a-button
+            status="normal"
+            type="primary"
+            size="mini"
+            @click="openModalForm"
+            >修改信息
+          </a-button>
+        </template>
+      </a-card>
+      <a-modal
+        width="30%"
+        :visible="visible"
+        placement="right"
+        @ok="handleOk"
+        @cancel="closeModel"
+        unmountOnClose
       >
-        <a-form-item field="用户名称" label="账号 :">
-          <a-input v-model="updateForm.userName" placeholder="请输入用户名称" />
-        </a-form-item>
-        <!--        <a-form-item field="邮箱" label="邮箱 :">-->
-        <!--          <a-input v-model="updateForm.email" placeholder="请输入邮箱" />-->
-        <!--        </a-form-item>-->
-        <!--        <a-form-item field="电话" label="电话 :">-->
-        <!--          <a-input v-model="updateForm.phone" placeholder="请输入电话号码" />-->
-        <!--        </a-form-item>-->
-        <a-form-item field="userProfile" label="简介 :">
-          <a-textarea
-            v-model="updateForm.userProfile"
-            placeholder="请输入简介"
-          />
-        </a-form-item>
-      </a-form>
-    </a-modal>
-    <a-row justify="center" style="margin: 5px">
-      <a-col style="text-align: center">
-        <a-button
-          status="success"
-          size="small"
-          type="primary"
-          style="margin: 10px"
+        <!--      <div style="text-align: center">-->
+        <!--        <a-upload-->
+        <!--          action="/"-->
+        <!--          :fileList="file ? [file] : []"-->
+        <!--          :show-file-list="false"-->
+        <!--          @change="onChange"-->
+        <!--          :custom-request="uploadAvatar"-->
+        <!--        >-->
+        <!--          <template #upload-button>-->
+        <!--            <div-->
+        <!--              class="arco-upload-list-picture custom-upload-avatar"-->
+        <!--              v-if="updateForm.userAvatar"-->
+        <!--            >-->
+        <!--              <a-avatar :size="70" shape="circle">-->
+        <!--                <img alt="头像" :src="userAvatarImg" />-->
+        <!--              </a-avatar>-->
+        <!--              <div class="arco-upload-list-picture-mask">-->
+        <!--                <IconEdit />-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--          </template>-->
+        <!--        </a-upload>-->
+        <!--      </div>-->
+        <a-form
+          :model="loginUser"
+          label-align="right"
+          title="个人信息"
+          style="max-width: 480px; margin: 0 auto"
         >
-          <a-link @click="toIndex">返回首页</a-link>
-        </a-button>
-        <a-button
-          status="normal"
-          size="medium"
-          type="primary"
-          style="margin: 10px"
-          @click="openModalForm"
-          >修改信息
-        </a-button>
-      </a-col>
-    </a-row>
+          <a-form-item field="用户名称" label="账号 :">
+            <a-input
+              v-model="updateForm.userName"
+              placeholder="请输入用户名称"
+            />
+          </a-form-item>
+          <!--        <a-form-item field="邮箱" label="邮箱 :">-->
+          <!--          <a-input v-model="updateForm.email" placeholder="请输入邮箱" />-->
+          <!--        </a-form-item>-->
+          <!--        <a-form-item field="电话" label="电话 :">-->
+          <!--          <a-input v-model="updateForm.phone" placeholder="请输入电话号码" />-->
+          <!--        </a-form-item>-->
+          <a-form-item field="userProfile" label="简介 :">
+            <a-textarea
+              v-model="updateForm.userProfile"
+              placeholder="请输入简介"
+            />
+          </a-form-item>
+        </a-form>
+      </a-modal>
+      <a-divider size="0" />
+      <a-card hoverable>
+        <span>
+          <a-typography-title :heading="6"> 给个评分吧！</a-typography-title>
+        </span>
+        <span><a-rate grading /></span>
+        <a-divider size="0" />
+      </a-card>
+      <a-divider size="0" />
+    </div>
+    <div class="right">
+      <a-divider size="0" />
+      <a-card hoverable title="提交信息">
+        <template #extra>
+          <a-button type="text" @click="toIndex">查看详情</a-button>
+        </template>
+        <div>
+          <submission-chart />
+        </div>
+      </a-card>
+      <a-divider size="0" />
+      <a-card hoverable>
+        <a-divider size="0" />
+        <a-timeline mode="alternate">
+          <a-timeline-item label="2017-03-10"
+            >The first milestone
+          </a-timeline-item>
+          <a-timeline-item label="2018-05-12"
+            >The second milestone
+          </a-timeline-item>
+          <a-timeline-item label="2020-09-30"
+            >The third milestone
+          </a-timeline-item>
+        </a-timeline>
+      </a-card>
+      <a-divider size="0" />
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -110,6 +136,7 @@ import { ref } from "vue";
 import { FileItem, Message } from "@arco-design/web-vue";
 import { useRouter } from "vue-router";
 import moment from "moment";
+import SubmissionChart from "@/components/SubmissionChart.vue";
 
 const router = useRouter();
 const file = ref();
@@ -129,10 +156,10 @@ const data = [
   //   label: "账号名称：",
   //   value: loginUser.userAccount,
   // },
-  // {
-  //   label: "我的简介：",
-  //   value: loginUser.userProfile,
-  // },
+  {
+    label: "我的简介：",
+    value: loginUser.userProfile !== "" ? loginUser.userProfile : "暂无简介",
+  },
   {
     label: "用户角色：",
     value: loginUser.userRole === "user" ? "普通用户" : "管理员",
@@ -225,8 +252,15 @@ const onChange = async (_: never, currentFile: FileItem) => {
 
 <style scoped>
 #userInfoView {
-  margin: 0 auto;
-  padding: 10px;
-  max-width: 820px;
+  display: flex;
+}
+
+.left {
+  width: 30%;
+  padding-right: 6vh;
+}
+
+.right {
+  width: 70%;
 }
 </style>

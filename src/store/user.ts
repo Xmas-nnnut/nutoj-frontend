@@ -10,6 +10,7 @@ export const useUserStore = defineStore("user", {
     loginUser: {
       userName: "未登录",
       id: "0",
+      userProfile: "",
       userRole: ACCESS_ENUM.NOT_LOGIN,
     },
   }),

@@ -68,16 +68,14 @@
         </a-space>
       </div>
       <a-divider size="1" />
+      <div class="pieChart">
+        <my-pie-chart></my-pie-chart>
+      </div>
+      <a-divider size="1" />
       <div class="calendar">
         <es-calendar theme="light" v-model="date" />
       </div>
-      <a-divider size="1" />
-      <div class="rate">
-        <span>
-          <a-typography-title :heading="6"> 给个评分吧！</a-typography-title>
-        </span>
-        <span><a-rate grading /></span>
-      </div>
+      <a-divider size="0" />
     </div>
   </div>
 </template>
@@ -85,6 +83,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import MdViewer from "@/components/MdViewer.vue";
+import MyPieChart from "@/components/MyPieChart.vue";
 
 const images = [
   "https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp",
@@ -109,8 +108,6 @@ const notice =
 const str = ref("Click the icon to edit this text.");
 
 const date = ref(new Date());
-
-// const reload = async () => {};
 </script>
 
 <style scoped>
