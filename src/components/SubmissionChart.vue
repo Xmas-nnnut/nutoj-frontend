@@ -1,9 +1,9 @@
 <template>
   <div id="submissionChart">
     <calendar-heatmap
-      end-date="2023-12-12"
+      :end-date="EndDate"
       :values="timeValue"
-      :max="5"
+      :max="10"
       tooltip-unit="submits"
       :range-color="['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']"
     />
@@ -12,17 +12,42 @@
 
 <script setup lang="ts">
 import { CalendarHeatmap } from "vue3-calendar-heatmap";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { QuestionControllerService } from "@/generated";
+import message from "@arco-design/web-vue/es/message";
+import useStore from "@/store";
 
-const timeValue = ref([
-  { date: "2023-08-02", count: 0 },
-  { date: "2023-08-03", count: 1 },
-  { date: "2023-08-04", count: 2 },
-  { date: "2023-08-05", count: 3 },
-  { date: "2023-08-06", count: 4 },
-  { date: "2023-08-07", count: 5 },
-  { date: "2023-08-08", count: 6 },
-]);
+/**
+ * 获取登录用户信息
+ */
+const store = useStore();
+const { user } = store;
+let loginUser = user.loginUser;
+
+let now = new Date();
+let yy = now.getFullYear();
+let mm = now.getMonth() + 1;
+let dd = now.getDate();
+const EndDate: string = yy + "-" + mm + "-" + dd;
+
+const timeValue = ref([]);
+
+const loadData = async () => {
+  const res = await QuestionControllerService.listMyDailyCountListUsingPost({
+    userId: loginUser.id,
+  });
+  if (res.code === 0) {
+    timeValue.value = res.data;
+  } else {
+    message.error("加载失败，" + res.message);
+  }
+};
+/**
+ * 页面加载时，请求数据
+ */
+onMounted(() => {
+  loadData();
+});
 </script>
 <style scoped>
 #submissionChart {

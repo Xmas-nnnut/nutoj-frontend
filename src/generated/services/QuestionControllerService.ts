@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { BaseResponse_boolean_ } from '../models/BaseResponse_boolean_';
+import type { BaseResponse_List_Map_string_object_ } from '../models/BaseResponse_List_Map_string_object_';
 import type { BaseResponse_long_ } from '../models/BaseResponse_long_';
 import type { BaseResponse_Page_Question_ } from '../models/BaseResponse_Page_Question_';
 import type { BaseResponse_Page_QuestionSubmitVO_ } from '../models/BaseResponse_Page_QuestionSubmitVO_';
@@ -236,6 +237,50 @@ export class QuestionControllerService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/question/question_submit/list/page',
+            body: questionSubmitQueryRequest,
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * listMyDailyCountList
+     * @param questionSubmitQueryRequest questionSubmitQueryRequest
+     * @returns BaseResponse_List_Map_string_object_ OK
+     * @returns any Created
+     * @throws ApiError
+     */
+    public static listMyDailyCountListUsingPost(
+        questionSubmitQueryRequest: QuestionSubmitQueryRequest,
+    ): CancelablePromise<BaseResponse_List_Map_string_object_ | any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/question/question_submit/my/dailyCountList',
+            body: questionSubmitQueryRequest,
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * listMyQuestionSubmitByPage
+     * @param questionSubmitQueryRequest questionSubmitQueryRequest
+     * @returns BaseResponse_Page_QuestionSubmitVO_ OK
+     * @returns any Created
+     * @throws ApiError
+     */
+    public static listMyQuestionSubmitByPageUsingPost(
+        questionSubmitQueryRequest: QuestionSubmitQueryRequest,
+    ): CancelablePromise<BaseResponse_Page_QuestionSubmitVO_ | any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/question/question_submit/my/list/page',
             body: questionSubmitQueryRequest,
             errors: {
                 401: `Unauthorized`,

@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { BaseResponse_boolean_ } from '../models/BaseResponse_boolean_';
+import type { BaseResponse_List_UserVO_ } from '../models/BaseResponse_List_UserVO_';
 import type { BaseResponse_LoginUserVO_ } from '../models/BaseResponse_LoginUserVO_';
 import type { BaseResponse_long_ } from '../models/BaseResponse_long_';
 import type { BaseResponse_Page_User_ } from '../models/BaseResponse_Page_User_';
@@ -197,19 +198,37 @@ export class UserControllerService {
     }
 
     /**
-     * userLoginByWxOpen
-     * @param code code
-     * @returns BaseResponse_LoginUserVO_ OK
+     * userLogout
+     * @returns BaseResponse_boolean_ OK
+     * @returns any Created
      * @throws ApiError
      */
-    public static userLoginByWxOpenUsingGet(
-        code: string,
-    ): CancelablePromise<BaseResponse_LoginUserVO_> {
+    public static userLogoutUsingPost(): CancelablePromise<BaseResponse_boolean_ | any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/user/logout',
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * matchUsers
+     * @param num num
+     * @returns BaseResponse_List_UserVO_ OK
+     * @throws ApiError
+     */
+    public static matchUsersUsingGet(
+        num?: number,
+    ): CancelablePromise<BaseResponse_List_UserVO_> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/user/login/wx_open',
+            url: '/api/user/match',
             query: {
-                'code': code,
+                'num': num,
             },
             errors: {
                 401: `Unauthorized`,
@@ -220,15 +239,23 @@ export class UserControllerService {
     }
 
     /**
-     * userLogout
-     * @returns BaseResponse_boolean_ OK
-     * @returns any Created
+     * recommendUsers
+     * @param pageNum pageNum
+     * @param pageSize pageSize
+     * @returns BaseResponse_Page_User_ OK
      * @throws ApiError
      */
-    public static userLogoutUsingPost(): CancelablePromise<BaseResponse_boolean_ | any> {
+    public static recommendUsersUsingGet(
+        pageNum?: number,
+        pageSize?: number,
+    ): CancelablePromise<BaseResponse_Page_User_> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/user/logout',
+            method: 'GET',
+            url: '/api/user/recommend',
+            query: {
+                'pageNum': pageNum,
+                'pageSize': pageSize,
+            },
             errors: {
                 401: `Unauthorized`,
                 403: `Forbidden`,
@@ -251,6 +278,52 @@ export class UserControllerService {
             method: 'POST',
             url: '/api/user/register',
             body: userRegisterRequest,
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * searchUsers
+     * @param username username
+     * @returns BaseResponse_List_UserVO_ OK
+     * @throws ApiError
+     */
+    public static searchUsersUsingGet(
+        username?: string,
+    ): CancelablePromise<BaseResponse_List_UserVO_> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/user/search',
+            query: {
+                'username': username,
+            },
+            errors: {
+                401: `Unauthorized`,
+                403: `Forbidden`,
+                404: `Not Found`,
+            },
+        });
+    }
+
+    /**
+     * searchUsersByTags
+     * @param tagNameList tagNameList
+     * @returns BaseResponse_List_UserVO_ OK
+     * @throws ApiError
+     */
+    public static searchUsersByTagsUsingGet(
+        tagNameList?: Array<string>,
+    ): CancelablePromise<BaseResponse_List_UserVO_> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/user/search/tags',
+            query: {
+                'tagNameList': tagNameList,
+            },
             errors: {
                 401: `Unauthorized`,
                 403: `Forbidden`,

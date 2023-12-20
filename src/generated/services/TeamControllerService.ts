@@ -89,8 +89,7 @@ export class TeamControllerService {
     }
 
     /**
-     * 队伍包括用户
-     * 队伍包括用户
+     * getTeamIncludeUser
      * @param teamId teamId
      * @returns BaseResponse_List_UserVO_ OK
      * @throws ApiError
