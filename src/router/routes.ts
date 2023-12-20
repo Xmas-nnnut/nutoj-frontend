@@ -58,6 +58,7 @@ export const routes: Array<RouteRecordRaw> = [
     name: "排行榜",
     component: BoardView,
     meta: {
+      access: ACCESS_ENUM.USER,
       group: "无分组",
     },
   },
@@ -75,6 +76,16 @@ export const routes: Array<RouteRecordRaw> = [
     component: QuestionsSubmitView,
     meta: {
       group: "题目",
+    },
+  },
+  {
+    path: "/my/questions_submit",
+    name: "我的浏览题目提交记录",
+    component: QuestionsSubmitView,
+    meta: {
+      access: ACCESS_ENUM.USER,
+      group: "题目",
+      hideInMenu: true,
     },
   },
   {
@@ -129,7 +140,7 @@ export const routes: Array<RouteRecordRaw> = [
     name: "创建队伍",
     component: AddTeamView,
     meta: {
-      // access: ACCESS_ENUM.ADMIN,
+      access: ACCESS_ENUM.USER,
       group: "队伍",
     },
   },
@@ -148,7 +159,7 @@ export const routes: Array<RouteRecordRaw> = [
     name: "管理队伍",
     component: ManageTeamsView,
     meta: {
-      // access: ACCESS_ENUM.ADMIN,
+      access: ACCESS_ENUM.USER,
       group: "队伍",
     },
   },
@@ -165,7 +176,7 @@ export const routes: Array<RouteRecordRaw> = [
     name: "创建帖子",
     component: AddPostView,
     meta: {
-      // access: ACCESS_ENUM.ADMIN,
+      access: ACCESS_ENUM.USER,
       group: "帖子",
     },
   },
@@ -246,6 +257,7 @@ export const routes: Array<RouteRecordRaw> = [
     name: "栗子",
     component: ExampleView,
     meta: {
+      hideInMenu: true,
       group: "无分组",
     },
   },

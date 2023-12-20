@@ -99,7 +99,7 @@
       <a-divider size="0" />
       <a-card hoverable title="提交信息">
         <template #extra>
-          <a-button type="text" @click="toIndex">查看详情</a-button>
+          <a-button type="text" @click="toMySubmit">查看详情</a-button>
         </template>
         <div>
           <submission-chart />
@@ -234,6 +234,17 @@ const handleOk = async () => {
 const closeModel = () => {
   visible.value = false;
 };
+
+/**
+ * 跳转题目提交信息
+ * @param team
+ */
+const toMySubmit = () => {
+  router.push({
+    path: "/my/questions_submit",
+  });
+};
+
 /**
  * 回到首页
  * @param question
@@ -243,6 +254,7 @@ const toIndex = () => {
     path: `/`,
   });
 };
+
 const onChange = async (_: never, currentFile: FileItem) => {
   file.value = {
     ...currentFile,

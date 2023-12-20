@@ -28,7 +28,7 @@
       <div class="notice">
         <a-tabs position="top">
           <template #extra>
-            <a-button>刷新一下</a-button>
+            <a-button @click="doRefresh">{{ text }}</a-button>
           </template>
           <a-tab-pane key="1" title="Notice 1">
             <MdViewer :value="notice || ''" />
@@ -99,15 +99,46 @@ const notice =
   "队伍管理服务、帖子管理服务和独立的代码沙箱，" +
   "使用 Spring Cloud 框架实现服务之间的通信和服务治理，" +
   "选用 Nacos 作为服务注册中心实现服务发现和注册。\n\n" +
+  "##### 项目特色 ~~(bushi~~ \n\n" +
   "- Redis + JWT 实现用户登录鉴权、Redis + Redission 令牌桶算法限流\n\n" +
-  "- RabbitMQ 解耦判题服务和题目服务\n\n" +
-  "- Markdown 富文本编辑器、Monaco Editor 代码编辑器\n\n" +
+  "- RabbitMQ 解耦判题服务和题目服务、Docker 代码沙箱\n\n" +
+  "- [Markdown 富文本编辑器](https://github.com/bytedance/bytemd) 、" +
+  " [Monaco Editor 代码编辑器](https://microsoft.github.io/monaco-editor) 、" +
+  " [OpenAPI 前端代码生成器](https://github.com/ferdikoomen/openapi-typescript-codegen) \n\n" +
+  "- [ECharts 可视化图表库](https://echarts.apache.org/zh/index.html) 、" +
+  " [仿 GitHub 的提交热力图](https://github.com/razorness/vue3-calendar-heatmap) 、" +
+  " [仿 Windows 的日历组件](https://github.com/vangleer/es-calendar) \n\n" +
   "- 实现多种设计模式：策略模式、工厂模式、代理模式、模板方法模式\n\n" +
+  "##### ~~大概是~~ Todo List: \n\n" +
+  "- 实现多种语言代码沙箱 \n\n" +
+  "- 实现比赛、评论功能 \n\n" +
+  "- 实现死信队列 \n\n" +
+  "- 支持图片上传 \n\n" +
+  "- 优化题库 \n\n" +
+  "- ~~AI判题、第三方判题~~ \n\n" +
+  "- ~~开通会员后查看答案~~ \n\n" +
   "";
 
 const str = ref("Click the icon to edit this text.");
 
 const date = ref(new Date());
+
+const count = ref(0);
+const text = ref("刷新一下");
+const doRefresh = () => {
+  count.value++;
+  if (count.value == 1) {
+    text.value = "刷新完成";
+  } else if (count.value == 2) {
+    text.value = "状态不错";
+  } else if (count.value == 3) {
+    text.value = "很好啦";
+  } else if (count.value == 4) {
+    text.value = "那你点吧";
+  } else {
+    text.value = "× " + count.value;
+  }
+};
 </script>
 
 <style scoped>

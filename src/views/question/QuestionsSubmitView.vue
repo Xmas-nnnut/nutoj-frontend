@@ -19,6 +19,19 @@
           <a-option>golang</a-option>
           <a-option>html</a-option>
         </a-select>
+        <a-divider size="0" direction="vertical" />
+      </a-form-item>
+      <a-form-item label="仅查看我的">
+        <a-switch
+          v-model="switchValue"
+          type="round"
+          :checked-value="true"
+          :unchecked-value="false"
+          change
+        >
+          <template #checked> 是</template>
+          <template #unchecked> 否</template>
+        </a-switch>
       </a-form-item>
       <a-form-item>
         <a-button type="primary" @click="doSubmit">搜索</a-button>
@@ -55,11 +68,10 @@ import {
   QuestionSubmitQueryRequest,
 } from "../../generated";
 import message from "@arco-design/web-vue/es/message";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import moment from "moment";
 
 const tableRef = ref();
-
 const dataList = ref([]);
 const total = ref(0);
 const searchParams = ref<QuestionSubmitQueryRequest>({
@@ -68,20 +80,42 @@ const searchParams = ref<QuestionSubmitQueryRequest>({
   pageSize: 10,
   current: 1,
 });
+const switchValue = ref(false);
+const router = useRouter();
+const route = useRoute();
+// 如果页面地址包含 my，视为我的提交记录页面
+const myPage = route.path.includes("my");
 
 const loadData = async () => {
-  const res = await QuestionControllerService.listQuestionSubmitByPageUsingPost(
-    {
-      ...searchParams.value,
-      sortField: "createTime",
-      sortOrder: "descend",
+  // 判断查询条件
+  if (switchValue.value) {
+    // 获取我的提交信息
+    const res =
+      await QuestionControllerService.listMyQuestionSubmitByPageUsingPost({
+        ...searchParams.value,
+        sortField: "createTime",
+        sortOrder: "descend",
+      });
+    if (res.code === 0) {
+      dataList.value = res.data.records;
+      total.value = res.data.total;
+    } else {
+      message.error("加载失败，" + res.message);
     }
-  );
-  if (res.code === 0) {
-    dataList.value = res.data.records;
-    total.value = res.data.total;
   } else {
-    message.error("加载失败，" + res.message);
+    // 获取全部提交信息
+    const res =
+      await QuestionControllerService.listQuestionSubmitByPageUsingPost({
+        ...searchParams.value,
+        sortField: "createTime",
+        sortOrder: "descend",
+      });
+    if (res.code === 0) {
+      dataList.value = res.data.records;
+      total.value = res.data.total;
+    } else {
+      message.error("加载失败，" + res.message);
+    }
   }
 };
 
@@ -96,6 +130,9 @@ watchEffect(() => {
  * 页面加载时，请求数据
  */
 onMounted(() => {
+  if (myPage) {
+    switchValue.value = true;
+  }
   loadData();
 });
 
@@ -137,18 +174,6 @@ const onPageChange = (page: number) => {
   };
 };
 
-const router = useRouter();
-
-/**
- * 跳转到做题页面
- * @param question
- */
-const toQuestionPage = (question: Question) => {
-  router.push({
-    path: `/view/question/${question.id}`,
-  });
-};
-
 /**
  * 确认搜索，重新加载数据
  */
@@ -158,6 +183,16 @@ const doSubmit = () => {
     ...searchParams.value,
     current: 1,
   };
+};
+
+/**
+ * 跳转到做题页面
+ * @param question
+ */
+const toQuestionPage = (question: Question) => {
+  router.push({
+    path: `/view/question/${question.id}`,
+  });
 };
 </script>
 
