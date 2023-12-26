@@ -71,8 +71,8 @@
                     >
                       <template #actions>
                         <a-button type="primary" @click="doCommentSubmit">
-                          提交</a-button
-                        >
+                          提交
+                        </a-button>
                       </template>
                       <template #content>
                         <a-textarea
@@ -91,12 +91,25 @@
                   </template>
                 </a-popover>
               </template>
-              <a-scrollbar type="track" style="height: 60vh; overflow: auto">
-                <div v-for="comment in comments" :key="comment.id">
-                  <a-comment
-                    :author="comment.author"
-                    :datetime="comment.createTime"
-                  >
+              <a-list
+                :max-height="420"
+                :bordered="false"
+                @reach-bottom="fetchData"
+              >
+                <template #scroll-loading>
+                  <div v-if="bottom">
+                    <icon-face-frown-fill />
+                    没有更多评论了捏
+                  </div>
+                  <a-spin v-else />
+                </template>
+                <a-list-item v-for="comment in comments" :key="comment.id">
+                  <a-comment :author="comment.author">
+                    <template #datetime>
+                      {{
+                        moment(comment.createTime).format("YYYY-MM-DD HH:mm:ss")
+                      }}
+                    </template>
                     <template #content>
                       <a-typography-paragraph
                         :ellipsis="{
@@ -111,28 +124,28 @@
                       <span
                         class="action"
                         key="heart"
-                        @click="onLikeChange(comment.liked)"
+                        @click="onLikeChange(comment.thumbed)"
                       >
-                        <span v-if="comment.liked">
+                        <span v-if="comment.thumbed">
                           <IconHeartFill :style="{ color: '#f53f3f' }" />
                         </span>
                         <span v-else>
                           <IconHeart />
                         </span>
-                        {{ comment.likeNum + (comment.liked ? 1 : 0) }}
+                        {{ comment.thumbNum + (comment.thumbed ? 1 : 0) }}
                       </span>
                       <span
                         class="action"
                         key="star"
-                        @click="onStarChange(comment.stared)"
+                        @click="onStarChange(comment.favoured)"
                       >
-                        <span v-if="comment.stared">
+                        <span v-if="comment.favoured">
                           <IconStarFill :style="{ color: '#ffb400' }" />
                         </span>
                         <span v-else>
                           <IconStar />
                         </span>
-                        {{ comment.starNum + (comment.stared ? 1 : 0) }}
+                        {{ comment.favourNum + (comment.favoured ? 1 : 0) }}
                       </span>
                     </template>
                     <template #avatar>
@@ -141,9 +154,8 @@
                       </a-avatar>
                     </template>
                   </a-comment>
-                  <a-divider />
-                </div>
-              </a-scrollbar>
+                </a-list-item>
+              </a-list>
             </a-card>
           </a-tab-pane>
         </a-tabs>
@@ -184,13 +196,23 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watchEffect, withDefaults, defineProps } from "vue";
+import {
+  onMounted,
+  ref,
+  watchEffect,
+  withDefaults,
+  defineProps,
+  reactive,
+} from "vue";
 import {
   Question,
+  QuestionCommentControllerService,
+  QuestionCommentVO,
   QuestionControllerService,
   QuestionSubmitAddRequest,
   QuestionVO,
 } from "../../generated";
+import moment from "moment";
 import message from "@arco-design/web-vue/es/message";
 import CodeEditor from "@/components/CodeEditor.vue";
 import MdViewer from "@/components/MdViewer.vue";
@@ -207,32 +229,12 @@ const question = ref<QuestionVO>();
 let commentForm = ref({
   content: "",
 });
-const comments = ref([
-  {
-    id: "1",
-    author: "测试评论1",
-    content:
-      "测试内容1。你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。",
-    likeNum: 1,
-    starNum: 1,
-    liked: false,
-    stared: false,
-    createTime: "before 1 hour",
-    isDelete: 0,
-  },
-  {
-    id: "2",
-    author: "测试评论2",
-    content:
-      "测试内容2。你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。",
-    likeNum: 2,
-    starNum: 2,
-    liked: true,
-    stared: true,
-    createTime: "before 2 hour",
-    isDelete: 0,
-  },
-]);
+const comments = ref<QuestionCommentVO[]>([]);
+const currentList = ref(0);
+const bottom = ref(false);
+const dataList = ref<QuestionCommentVO[]>([]);
+const pages = ref(1);
+const firstLoad = ref(true);
 
 const onLikeChange = (liked: boolean): boolean => {
   return !liked;
@@ -241,14 +243,58 @@ const onStarChange = (stared: boolean): boolean => {
   return !stared;
 };
 
+/**
+ * 获取评论信息
+ * @param current
+ */
+const loadCommentData = async (current: number) => {
+  const resComment =
+    await QuestionCommentControllerService.listIdQuestionCommentVoByPageUsingPost(
+      {
+        questionId: question.value?.id,
+        pageSize: 4,
+        current: current,
+      }
+    );
+  if (resComment.code === 0) {
+    message.success("加载评论成功，" + resComment.message);
+    pages.value = resComment.data.pages;
+    return resComment.data.records;
+  } else {
+    message.error("评论加载失败，" + resComment.message);
+  }
+};
+
 const loadData = async () => {
   const res = await QuestionControllerService.getQuestionVoByIdUsingGet(
     props.id as any
   );
   if (res.code === 0) {
+    message.success("加载题目成功，" + res.message);
     question.value = res.data;
+    // 获取评论信息
+    comments.value = await loadCommentData(1);
+    currentList.value = 1;
+    firstLoad.value = false;
   } else {
     message.error("题目加载失败，" + res.message);
+  }
+};
+
+/**
+ * 评论列表触底后加载新的评论
+ */
+const fetchData = async () => {
+  // console.log("reach bottom!");
+  currentList.value = currentList.value + 1;
+  // 不能是第一次加载
+  if (currentList.value <= pages.value && !firstLoad.value) {
+    dataList.value = await loadCommentData(currentList.value);
+    // 将新获取的评论数据添加到comments数组中
+    comments.value.push(...dataList.value);
+  } else {
+    // console.log("no data");
+    bottom.value = true;
   }
 };
 
@@ -276,7 +322,6 @@ const doSubmit = async () => {
   if (!question.value?.id) {
     return;
   }
-
   const res = await QuestionControllerService.doQuestionSubmitUsingPost({
     ...form.value,
     questionId: question.value.id,
@@ -288,8 +333,24 @@ const doSubmit = async () => {
   }
 };
 
+/**
+ * 提交评论
+ */
 const doCommentSubmit = async () => {
-  message.success("提交评论成功，评论内容：" + commentForm.value.content);
+  if (!question.value?.id) {
+    return;
+  }
+  const res =
+    await QuestionCommentControllerService.addQuestionCommentUsingPost({
+      ...commentForm.value,
+      questionId: question.value.id,
+    });
+
+  if (res.code === 0) {
+    message.success("提交成功," + res.message);
+  } else {
+    message.error("提交失败," + res.message);
+  }
 };
 
 /**

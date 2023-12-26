@@ -51,6 +51,6 @@ onMounted(() => {
 </script>
 <style scoped>
 #submissionChart {
-  width: 116vh;
+  width: 114vh;
 }
 </style>

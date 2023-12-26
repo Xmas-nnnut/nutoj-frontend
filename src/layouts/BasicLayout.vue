@@ -40,7 +40,8 @@ export default {
 
 #basicLayout .content {
   background: #fefefe;
-  margin: 1.5% 2%;
+  width: 1350px;
+  margin: 1.5% auto;
   padding: 1% 3%;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
