@@ -54,12 +54,12 @@
       </a-card>
     </div>
 
-    <a-affix :offsetBottom="120" style="margin-left: 150vh">
+    <a-affix :offsetBottom="160" style="margin-left: 90%">
       <a-button type="primary" shape="circle" size="large">
         <icon-heart />
       </a-button>
     </a-affix>
-    <a-affix :offsetBottom="160" style="margin-left: 150vh">
+    <a-affix :offsetBottom="200" style="margin-left: 90%">
       <a-button type="primary" shape="circle" size="large">
         <icon-star />
       </a-button>
@@ -107,6 +107,6 @@ onMounted(() => {
 
 .post {
   max-width: 820px;
-  margin-left: 25vh;
+  margin: auto;
 }
 </style>

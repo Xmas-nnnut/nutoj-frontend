@@ -96,10 +96,14 @@ const columns = [
   {
     title: "标题",
     dataIndex: "title",
+    ellipsis: true,
+    width: 100,
   },
   {
     title: "内容",
     dataIndex: "content",
+    ellipsis: true,
+    width: 200,
   },
   {
     title: "标签",
@@ -112,6 +116,8 @@ const columns = [
   {
     title: "创建时间",
     dataIndex: "createTime",
+    ellipsis: true,
+    width: 120,
   },
   {
     title: "操作",

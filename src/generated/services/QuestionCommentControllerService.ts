@@ -30,7 +30,7 @@ export class QuestionCommentControllerService {
     ): CancelablePromise<BaseResponse_long_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/questionComment/add',
+            url: '/api/question_comment/add',
             body: questionCommentAddRequest,
             errors: {
                 401: `Unauthorized`,
@@ -52,7 +52,7 @@ export class QuestionCommentControllerService {
     ): CancelablePromise<BaseResponse_boolean_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/questionComment/delete',
+            url: '/api/question_comment/delete',
             body: deleteRequest,
             errors: {
                 401: `Unauthorized`,
@@ -74,7 +74,7 @@ export class QuestionCommentControllerService {
     ): CancelablePromise<BaseResponse_boolean_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/questionComment/edit',
+            url: '/api/question_comment/edit',
             body: questionCommentEditRequest,
             errors: {
                 401: `Unauthorized`,
@@ -95,7 +95,7 @@ export class QuestionCommentControllerService {
     ): CancelablePromise<BaseResponse_QuestionCommentVO_> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/questionComment/get/vo',
+            url: '/api/question_comment/get/vo',
             query: {
                 'id': id,
             },
@@ -119,7 +119,7 @@ export class QuestionCommentControllerService {
     ): CancelablePromise<BaseResponse_Page_QuestionCommentVO_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/questionComment/list/page/vo',
+            url: '/api/question_comment/list/page/vo',
             body: questionCommentQueryRequest,
             errors: {
                 401: `Unauthorized`,
@@ -141,7 +141,7 @@ export class QuestionCommentControllerService {
     ): CancelablePromise<BaseResponse_Page_QuestionCommentVO_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/questionComment/my/list/page/vo',
+            url: '/api/question_comment/my/list/page/vo',
             body: questionCommentQueryRequest,
             errors: {
                 401: `Unauthorized`,
@@ -163,7 +163,7 @@ export class QuestionCommentControllerService {
     ): CancelablePromise<BaseResponse_Page_QuestionCommentVO_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/questionComment/questionId/list/page/vo',
+            url: '/api/question_comment/questionId/list/page/vo',
             body: questionCommentQueryRequest,
             errors: {
                 401: `Unauthorized`,
@@ -185,7 +185,7 @@ export class QuestionCommentControllerService {
     ): CancelablePromise<BaseResponse_boolean_ | any> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/questionComment/update',
+            url: '/api/question_comment/update',
             body: questionCommentUpdateRequest,
             errors: {
                 401: `Unauthorized`,
