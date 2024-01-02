@@ -30,7 +30,7 @@
       @page-change="onPageChange"
     >
       <template #tags="{ record }">
-        <a-space wrap>
+        <a-space wrap style="padding-top: 8px">
           <a-tag
             v-for="(tag, index) of record.tags"
             :key="index"
@@ -41,10 +41,9 @@
       </template>
       <template #acceptRate="{ record }">
         {{
-          `${
-            (record.submitNum ? record.acceptedNum / record.submitNum : "0") *
-            100
-          }% (${record.acceptedNum}/${record.submitNum})`
+          `${Math.round(
+            (record.submitNum ? record.acceptedNum / record.submitNum : 0) * 100
+          )}% (${record.acceptedNum}/${record.submitNum})`
         }}
       </template>
       <template #createTime="{ record }">
@@ -115,25 +114,31 @@ const columns = [
   {
     title: "题号",
     dataIndex: "id",
+    width: 200,
   },
   {
     title: "题目名称",
     dataIndex: "title",
+    ellipsis: true,
   },
   {
     title: "标签",
     slotName: "tags",
+    width: 300,
   },
   {
     title: "通过率",
     slotName: "acceptRate",
+    width: 120,
   },
   {
     title: "创建时间",
     slotName: "createTime",
+    width: 120,
   },
   {
     slotName: "optional",
+    width: 100,
   },
 ];
 

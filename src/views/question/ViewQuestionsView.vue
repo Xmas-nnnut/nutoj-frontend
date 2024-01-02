@@ -174,8 +174,8 @@
             >
               <a-option>java</a-option>
               <a-option>cpp</a-option>
-              <a-option>go</a-option>
-              <a-option>html</a-option>
+              <a-option>c</a-option>
+              <a-option disabled>go</a-option>
             </a-select>
           </a-form-item>
         </a-form>
@@ -299,16 +299,7 @@ const fetchData = async () => {
 };
 
 // todo
-const answer =
-  "```java\n" +
-  "public class Main {\n" +
-  "    public static void main(String[] args) {\n" +
-  "        int a = Integer.parseInt(args[0]);\n" +
-  "        int b = Integer.parseInt(args[1]);\n" +
-  "        System.out.println((a + b));\n" +
-  "    }\n" +
-  "}\n" +
-  "```";
+const answer = "~~开通会员后查看答案~~";
 
 const form = ref<QuestionSubmitAddRequest>({
   language: "java",

@@ -22,6 +22,7 @@ import AddPostView from "@/views/post/AddPostView.vue";
 import ManagePostView from "@/views/post/ManagePostView.vue";
 import ViewPostView from "@/views/post/ViewPostView.vue";
 import BoardView from "@/views/BoardView.vue";
+import HelpView from "@/views/HelpView.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -224,6 +225,14 @@ export const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     // component: () =>
     //   import(/* webpackChunkName: "about" */ "../views/user/UserAboutView.vue"),
+  },
+  {
+    path: "/help",
+    name: "帮助",
+    component: HelpView,
+    meta: {
+      group: "无分组",
+    },
   },
   {
     path: "/manage/user",
