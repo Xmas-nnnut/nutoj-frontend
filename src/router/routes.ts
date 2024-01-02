@@ -57,7 +57,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/board",
     name: "排行榜",
-    component: BoardView,
+    component: () => import("@/views/BoardView.vue"), // 异步加载
     meta: {
       access: ACCESS_ENUM.USER,
       group: "无分组",
@@ -92,7 +92,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/view/question/:id",
     name: "在线做题",
-    component: ViewQuestionsView,
+    component: () => import("@/views/question/ViewQuestionsView.vue"), // 异步加载
     props: true,
     meta: {
       access: ACCESS_ENUM.USER,
@@ -103,7 +103,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/add/question",
     name: "创建题目",
-    component: AddQuestionView,
+    component: () => import("@/views/question/AddQuestionView.vue"), // 异步加载
     meta: {
       access: ACCESS_ENUM.ADMIN,
       group: "题目",
@@ -112,7 +112,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/update/question",
     name: "更新题目",
-    component: AddQuestionView,
+    component: () => import("@/views/question/AddQuestionView.vue"), // 异步加载
     meta: {
       access: ACCESS_ENUM.ADMIN,
       group: "题目",
@@ -139,7 +139,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/add/team",
     name: "创建队伍",
-    component: AddTeamView,
+    component: () => import("@/views/team/AddTeamView.vue"), // 异步加载
     meta: {
       access: ACCESS_ENUM.USER,
       group: "队伍",
@@ -148,7 +148,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/update/team",
     name: "更新队伍",
-    component: AddTeamView,
+    component: () => import("@/views/team/AddTeamView.vue"), // 异步加载
     meta: {
       // access: ACCESS_ENUM.ADMIN,
       hideInMenu: true,
@@ -175,7 +175,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/add/post",
     name: "创建帖子",
-    component: AddPostView,
+    component: () => import("@/views/post/AddPostView.vue"), // 异步加载
     meta: {
       access: ACCESS_ENUM.USER,
       group: "帖子",
@@ -184,7 +184,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/update/post",
     name: "更新帖子",
-    component: AddPostView,
+    component: () => import("@/views/post/AddPostView.vue"), // 异步加载
     meta: {
       // access: ACCESS_ENUM.ADMIN,
       hideInMenu: true,
@@ -203,7 +203,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/view/post/:id",
     name: "浏览帖子详情",
-    component: ViewPostView,
+    component: () => import("@/views/post/ViewPostView.vue"), // 异步加载
     props: true,
     meta: {
       access: ACCESS_ENUM.USER,
@@ -214,7 +214,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/about",
     name: "关于我的",
-    component: UserAboutView,
+    component: () => import("@/views/user/UserAboutView.vue"), // 异步加载
     meta: {
       access: ACCESS_ENUM.USER,
       group: "无分组",
@@ -229,7 +229,7 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: "/help",
     name: "帮助",
-    component: HelpView,
+    component: () => import("@/views/HelpView.vue"), // 异步加载
     meta: {
       group: "无分组",
     },
@@ -243,31 +243,13 @@ export const routes: Array<RouteRecordRaw> = [
       group: "无分组",
     },
   },
-  {
-    path: "/hide",
-    name: "隐藏页面",
-    component: ExampleView,
-    meta: {
-      hideInMenu: true,
-      group: "无分组",
-    },
-  },
-  {
-    path: "/noAuth",
-    name: "无权限",
-    component: NoAuthView,
-    meta: {
-      hideInMenu: true,
-      group: "无分组",
-    },
-  },
-  {
-    path: "/example",
-    name: "栗子",
-    component: ExampleView,
-    meta: {
-      hideInMenu: true,
-      group: "无分组",
-    },
-  },
+  // {
+  //   path: "/example",
+  //   name: "栗子",
+  //   component: ExampleView,
+  //   meta: {
+  //     hideInMenu: true,
+  //     group: "无分组",
+  //   },
+  // },
 ];

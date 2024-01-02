@@ -13,7 +13,7 @@
       @page-change="onPageChange"
     >
       <template #tags="{ record }">
-        <a-space wrap>
+        <a-space wrap style="padding-top: 8px">
           <a-tag
             v-for="(tag, index) of record.tags"
             :key="index"
