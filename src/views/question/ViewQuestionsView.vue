@@ -92,7 +92,7 @@
                 </a-popover>
               </template>
               <a-list
-                :max-height="420"
+                :max-height="448"
                 :bordered="false"
                 @reach-bottom="fetchData"
               >
@@ -185,11 +185,14 @@
           :language="form.language"
           :handle-change="changeCode"
         />
-
-        <a-divider size="0" />
-        <a-button type="primary" style="min-width: 200px" @click="doSubmit">
-          提交代码
-        </a-button>
+        <div style="display: flex; justify-content: space-between">
+          <a-button style="min-width: 120px" @click="doRecover" disabled>
+            还原代码
+          </a-button>
+          <a-button type="primary" style="min-width: 120px" @click="doSubmit">
+            提交代码
+          </a-button>
+        </div>
       </a-col>
     </a-row>
   </div>
@@ -316,12 +319,19 @@ const fetchData = async () => {
 };
 
 // todo
-const answer = "~~开通会员后查看答案~~";
+const answer = "~~开通会员后可查看答案 (bushi~~";
 
 const form = ref<QuestionSubmitAddRequest>({
   language: "java",
   code: "",
 });
+
+/**
+ * 还原代码
+ */
+const doRecover = () => {
+  return;
+};
 
 /**
  * 提交代码

@@ -2,11 +2,9 @@
   <div
     id="code-editor"
     ref="codeEditorRef"
-    style="min-height: 400px; height: 60vh"
+    style="min-height: 66vh; margin-top: 1%; margin-bottom: 2%"
   />
-  {{ language }}
-  {{ value }}
-  <a-button @click="fillValue">填充值</a-button>
+  <!--  <a-button @click="fillValue">填充值</a-button>-->
 </template>
 <script setup lang="ts">
 import * as monaco from "monaco-editor";

@@ -1,6 +1,6 @@
 <template>
   <div id="loadingComponent">
-    <a-spin dot tip="很快就好！第一次加载需要一段时间..." />
+    <a-spin dot tip="第一次加载需要一段时间......" />
   </div>
 </template>
 
