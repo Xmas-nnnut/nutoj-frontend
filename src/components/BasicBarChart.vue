@@ -1,6 +1,6 @@
 <template>
   <div id="basicBarChart">
-    <div id="barChart" style="width: 170vh; height: 80vh"></div>
+    <div id="barChart"></div>
   </div>
 </template>
 
@@ -74,6 +74,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.basicBarChart {
+#basicBarChart {
+}
+
+#barChart {
+  width: 100%;
+  height: 80vh;
 }
 </style>
