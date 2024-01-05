@@ -12,8 +12,8 @@
           disabled
         >
           <div class="title-bar">
-            <img class="logo" src="../assets/mlm.png" />
-            <div class="title">坚果 oj</div>
+            <img class="logo" src="../assets/Elysia.png" />
+            <div class="title">坚果 OJ</div>
           </div>
         </a-menu-item>
 

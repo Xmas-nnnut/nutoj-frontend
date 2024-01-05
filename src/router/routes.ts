@@ -1,7 +1,6 @@
 import { RouteRecordRaw } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import ExampleView from "@/views/ExampleView.vue";
-import AdminView from "@/views/AdminView.vue";
 import NoAuthView from "@/views/NoAuthView.vue";
 import UserLayout from "@/layouts/UserLayout.vue";
 import UserLoginView from "@/views/user/UserLoginView.vue";
@@ -23,6 +22,7 @@ import ManagePostView from "@/views/post/ManagePostView.vue";
 import ViewPostView from "@/views/post/ViewPostView.vue";
 import BoardView from "@/views/BoardView.vue";
 import HelpView from "@/views/HelpView.vue";
+import LoadingView from "@/components/LoadingComponent.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -243,13 +243,22 @@ export const routes: Array<RouteRecordRaw> = [
       group: "无分组",
     },
   },
-  // {
-  //   path: "/example",
-  //   name: "栗子",
-  //   component: ExampleView,
-  //   meta: {
-  //     hideInMenu: true,
-  //     group: "无分组",
-  //   },
-  // },
+  {
+    path: "/loading",
+    name: "加载中",
+    component: LoadingView,
+    meta: {
+      hideInMenu: true,
+      group: "无分组",
+    },
+  },
+  {
+    path: "/example",
+    name: "栗子",
+    component: () => import("@/views/ExampleView.vue"), // 异步加载
+    meta: {
+      hideInMenu: true,
+      group: "无分组",
+    },
+  },
 ];

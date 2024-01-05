@@ -14,9 +14,9 @@ const notice =
   "## 评测方式 \n\n" +
   "Java 使用 JDK 8 编译，镜像为 openjdk:8-alpine ，命令为: \n\n" +
   "``` javac -encoding utf-8 -J-Xmx256m Main.java ``` \n\n" +
-  "C++ 使用 g++ 4.8.5 编译，命令为: \n\n" +
+  "C++ 使用 g++ 9.3.1 编译，命令为: \n\n" +
   "``` g++ -finput-charset=UTF-8 -fexec-charset=UTF-8 Main.cpp -o Main ``` \n\n" +
-  "C 使用 gcc 4.8.5 编译，命令为: \n\n" +
+  "C 使用 gcc 9.3.1 编译，命令为: \n\n" +
   "``` gcc Main.c -o Main -finput-charset=UTF-8 -fexec-charset=UTF-8 ``` \n\n" +
   "这里给出的编译器版本仅供参考，请以实际编译器版本为准。\n\n" +
   "请使用 **标准输入输出** 。\n\n" +

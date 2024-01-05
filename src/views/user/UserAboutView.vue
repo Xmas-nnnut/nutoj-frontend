@@ -16,7 +16,7 @@
             type="primary"
             size="mini"
             style="margin: 10px"
-            @click="toIndex"
+            @click="toHome"
             >返回首页
           </a-button>
           <a-button
@@ -249,7 +249,7 @@ const toMySubmit = () => {
  * 回到首页
  * @param question
  */
-const toIndex = () => {
+const toHome = () => {
   router.push({
     path: `/`,
   });
